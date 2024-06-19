@@ -11,6 +11,7 @@ class AppColors{
 
   //Conversation colors
   static const Color connectedUserColor  = Color(0xFF00F86B);
+  static const Color unConnectedUserColor  = Color(0xFFD5D4D4);
   static const Color conversationDateColor  = Color(0xFF9F9F9F);
   static const Color conversationUnReadCountTextColor  = Colors.white;
   static const Color conversationUnReadCountColor  = Colors.black;
