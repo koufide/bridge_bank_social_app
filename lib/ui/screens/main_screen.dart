@@ -1,6 +1,7 @@
 import 'dart:ui';
 
-import 'package:bridgebank_social_app/colors.dart';
+import 'package:bridgebank_social_app/configuration/colors.dart';
+import 'package:bridgebank_social_app/ui/widgets/conversation_item_widget.dart';
 import 'package:flutter/material.dart';
 
 class MainScreen extends StatefulWidget {
@@ -28,7 +29,9 @@ class _MainScreenState extends State<MainScreen> {
       body: Column(
         children: [
 
-          ListTile(
+          ConversationItemWidget()
+
+     /*     ListTile(
             leading: Container(
               width: 80.0,
               height: 80.0,
@@ -68,7 +71,7 @@ class _MainScreenState extends State<MainScreen> {
 
               ],
             ),
-          )
+          )*/
         ],
       ),
     );
