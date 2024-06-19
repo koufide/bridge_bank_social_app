@@ -1,5 +1,4 @@
 import 'package:bridgebank_social_app/configuration/colors.dart';
-import 'package:bridgebank_social_app/configuration/constants.dart';
 import 'package:bridgebank_social_app/data/models/conversation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';

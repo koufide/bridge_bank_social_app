@@ -1,4 +1,3 @@
-import 'dart:ui';
 
 import 'package:bridgebank_social_app/configuration/colors.dart';
 import 'package:bridgebank_social_app/ui/screens/main/pages/groups_page.dart';

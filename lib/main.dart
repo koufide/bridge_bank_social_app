@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
               useMaterial3: true,
               fontFamily: "Poppins"
             ),
-            home: MainScreen(title: "BB Social",)
+            home: const MainScreen(title: "BB Social",)
         );
       },
     );
