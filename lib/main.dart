@@ -1,6 +1,3 @@
-import 'package:bridgebank_social_app/ui/screens/auth/connexion.dart';
-import 'package:bridgebank_social_app/ui/screens/auth/login.dart';
-import 'package:bridgebank_social_app/ui/screens/auth/login_screen.dart';
 import 'package:bridgebank_social_app/ui/screens/auth/register_screen.dart';
 // import 'package:bridgebank_social_app/ui/screens/main/main_screen.dart';
 // import 'package:bridgebank_social_app/ui/screens/auth/connexion.dart';
@@ -30,7 +27,7 @@ class MyApp extends StatelessWidget {
             // home: LoginForm()
           //home:  MyCustomForm(),
          //home:  LoginScreen(),
-          home:   RegisterScreen(),
+          home:   const RegisterScreen(),
             // home: const MainScreen(title: "BB Social",)
         );
       },

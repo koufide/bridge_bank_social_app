@@ -5,7 +5,7 @@ class MyConnexion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: LoginForm()
     )
     ;
@@ -14,6 +14,8 @@ class MyConnexion extends StatelessWidget {
 
 
 class LoginForm extends StatefulWidget{
+  const LoginForm({super.key});
+
   @override
   State<StatefulWidget> createState() => _LoginFormState();
 }
@@ -45,7 +47,7 @@ class _LoginFormState extends State<LoginForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Connexion"),),
+      appBar: AppBar(title: const Text("Connexion"),),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(

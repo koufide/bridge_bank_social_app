@@ -4,7 +4,6 @@ import 'package:bridgebank_social_app/ui/widgets/customer_button.dart';
 import 'package:bridgebank_social_app/ui/widgets/customer_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
-import 'package:bridgebank_social_app/configuration/colors.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -107,7 +106,7 @@ class _LoginScreenState extends State<LoginScreen> {
             CustomerButton(
                 title: "S'inscrire"
                 , onTap: (){
-              final route = MaterialPageRoute(builder: (ctxt) => RegisterScreen() );
+              final route = MaterialPageRoute(builder: (ctxt) => const RegisterScreen() );
               Navigator.push(context, route);
             }
               //,color: AppColors.appBarTitleColor,

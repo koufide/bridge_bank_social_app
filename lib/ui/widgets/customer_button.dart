@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../configuration/colors.dart';
-import '../../configuration/constants.dart';
 
 class CustomerButton extends StatelessWidget {
   final Function () onTap;
