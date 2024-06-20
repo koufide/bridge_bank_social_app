@@ -1,4 +1,5 @@
 import 'package:bridgebank_social_app/configuration/constants.dart';
+import 'package:bridgebank_social_app/ui/screens/auth/register_screen.dart';
 import 'package:bridgebank_social_app/ui/widgets/custom_button.dart';
 import 'package:bridgebank_social_app/ui/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
@@ -88,6 +89,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 color: AppColors.primary,
                 onTap: (){
 
+                  final route = MaterialPageRoute(builder: (ctxt) => const RegisterScreen());
+                  Navigator.pushReplacement(context, route);
                 }),
             //TODO Bouton Inscription
           ],
