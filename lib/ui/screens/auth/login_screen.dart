@@ -54,11 +54,13 @@ class _LoginScreenState extends State<LoginScreen> {
               textController: _emailController,
               placeholder: "Email",
               prefixIcon: Icons.email,
+              obscureText: false,
             ),
             SizedBox(height: 2.h,),
             DefaultTextField(textController: _passwordController,
               placeholder: "Password",
               prefixIcon: Icons.lock,
+              obscureText: true,
             ),
 
 

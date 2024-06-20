@@ -8,6 +8,7 @@ class DefaultTextField extends StatefulWidget {
   final TextInputType inputType;
   final String placeholder;
   final IconData? prefixIcon;
+  final bool obscureText;
 
   const DefaultTextField({
     super.key,
@@ -15,7 +16,8 @@ class DefaultTextField extends StatefulWidget {
     required this.placeholder,
     this.prefixIcon,
     this.inputType = TextInputType.text,
-    this.focusNode
+    this.focusNode,
+    this.obscureText = false,
   });
 
   @override
@@ -55,6 +57,7 @@ class _DefaultTextFieldState extends State<DefaultTextField> {
       ),
 
       child:  TextField(
+        obscureText: widget.obscureText,
         controller: widget.textController,
         focusNode: _focusNode,
         // autofocus: true,
