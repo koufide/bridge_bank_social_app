@@ -1,3 +1,4 @@
+import 'package:bridgebank_social_app/ui/screens/auth/connexion.dart';
 import 'package:flutter/material.dart';
 
 
@@ -7,19 +8,21 @@ class MyLogin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            child: Row(
-              children: [
-                Text("data"),
-              ],
+    return const Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+          child: TextField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(
+                
+              ),
             ),
           ),
-        ],
-      ),
+        ),
+        
+      ],
     );
   }
 }
