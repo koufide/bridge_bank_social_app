@@ -1,4 +1,5 @@
 import 'package:bridgebank_social_app/configuration/constants.dart';
+import 'package:bridgebank_social_app/ui/widgets/custom_button.dart';
 import 'package:bridgebank_social_app/ui/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
@@ -21,6 +22,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -56,10 +60,35 @@ class _LoginScreenState extends State<LoginScreen> {
               inputType:  TextInputType.text,
               placeholder: "Mot de passe",
               prefixIcon: Icons.lock,
+              obscureText: true,
             ),
-            //TODO Chalp de soisi Mot de passe
-            //TODO Lien Mot de passe Oublié?
-            //TODO Bouton Connexion
+            SizedBox(height: 2.h,),
+
+            //Lien Mot de passe oublié
+            InkWell(
+              onTap: (){
+                print("User onTap");
+              },
+              child: const Text("Mot de passe oublié?",
+                style: TextStyle(
+                  decoration: TextDecoration.underline
+              ),),
+            ),
+
+            SizedBox(height: 2.h,),
+            //Bouton Connexion
+            CustomButton(
+                title: "Se connecter",
+                onTap: (){
+
+            }),
+            SizedBox(height: 2.h,),
+            CustomButton(
+                title: "S'inscrire",
+                color: AppColors.primary,
+                onTap: (){
+
+                }),
             //TODO Bouton Inscription
           ],
         ),
