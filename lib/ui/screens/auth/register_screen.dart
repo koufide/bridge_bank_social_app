@@ -126,7 +126,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             // lien de mot de passe oublie
             InkWell(
               onTap: () {
-                print("==> Inscription");
+                print("==> Inscriptionn");
               },
               child: const Text(
                 "Mot de passe oublié",
