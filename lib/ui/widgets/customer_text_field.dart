@@ -26,6 +26,7 @@ class DefaultTextField extends StatefulWidget {
 
 class _DefaultTextFieldState extends State<DefaultTextField> {
   FocusNode _focusNode= FocusNode();
+  bool _obscureText = false;
 
 
   @override
@@ -33,6 +34,8 @@ class _DefaultTextFieldState extends State<DefaultTextField> {
     if(widget.focusNode != null){
       _focusNode = widget.focusNode!;
     }
+    print( "widget.obscureText ==> ${widget.obscureText}");
+    _obscureText = widget.obscureText;
     super.initState();
 
     _focusNode.addListener((){
@@ -48,7 +51,7 @@ class _DefaultTextFieldState extends State<DefaultTextField> {
     return Container(
 
       margin: const EdgeInsets.symmetric(horizontal: Constants.defaultPadding),
-      padding: const EdgeInsets.only(left: 5),
+      padding: const EdgeInsets.only(left: 5, right: 5),
       decoration: BoxDecoration(
           border: Border.all(
             width: 1,
@@ -57,7 +60,8 @@ class _DefaultTextFieldState extends State<DefaultTextField> {
       ),
 
       child:  TextField(
-        obscureText: widget.obscureText,
+        //obscureText: widget.obscureText,
+        obscureText: _obscureText,
         controller: widget.textController,
         focusNode: _focusNode,
         // autofocus: true,
@@ -65,10 +69,16 @@ class _DefaultTextFieldState extends State<DefaultTextField> {
         decoration: InputDecoration(
             icon: Icon(widget.prefixIcon??Icons.email, color: _focusNode.hasFocus?AppColors.primary:Colors.black12, ),
             hintText: widget.placeholder,
-            border: InputBorder.none
+            border: InputBorder.none,
+          // suffix: widget.obscureText?GestureDetector(
+          //   onTap: (){
+          //     _obscureText = !_obscureText;
+          //     setState(() {
+          //     });
+          //   },
+          // ):null,
         ),
       ),
-
 
     );
   }

@@ -1,22 +1,25 @@
 import 'package:bridgebank_social_app/configuration/constants.dart';
-import 'package:bridgebank_social_app/ui/screens/auth/register_screen.dart';
+import 'package:bridgebank_social_app/ui/screens/auth/login_screen.dart';
 import 'package:bridgebank_social_app/ui/widgets/customer_button.dart';
 import 'package:bridgebank_social_app/ui/widgets/customer_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
 import 'package:bridgebank_social_app/configuration/colors.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   final FocusNode _focusNode = FocusNode();
+  final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool _isTermsAccepted = false;
 
   @override
   Widget build(BuildContext context) {
@@ -25,16 +28,16 @@ class _LoginScreenState extends State<LoginScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+
             SizedBox(
-              //height: 2.h,
               height: Adaptive.h(7),
             ),
+
             _buildLogoUi(),
-            //todo TITRE
 
             Center(
               child: Text(
-                "Connexion",
+                "Inscription",
                 style: Theme.of(context)
                     .textTheme
                     .headlineLarge
@@ -44,7 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
             Center(
               child: Text(
-                "Connectez vous maintenant",
+                "Rejoignez nous maintenant!!! ouvrez un compte pour acceder à la communaute BRIDGE",
                 style: Theme.of(context).textTheme.titleLarge,
               ),
             ),
@@ -52,6 +55,29 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(
               height: 2.h,
             ),
+
+
+            DefaultTextField(
+              textController: _lastNameController,
+              placeholder: "Nom",
+              prefixIcon: Icons.person,
+              obscureText: false,
+            ),
+            SizedBox(
+              height: 2.h,
+            ),
+
+            DefaultTextField(
+              textController: _firstNameController,
+              placeholder: "PreNoms",
+              prefixIcon: Icons.person_2,
+              obscureText: false,
+            ),
+
+            SizedBox(
+              height: 2.h,
+            ),
+
             DefaultTextField(
               textController: _emailController,
               placeholder: "Email",
@@ -74,10 +100,33 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 2.h,
             ),
 
+            Row(
+              children: [
+                Checkbox(
+                    value: _isTermsAccepted,
+                    onChanged: (value){
+                      _isTermsAccepted = value!;
+                      setState(() {
+
+                      });
+                    }
+                ),
+                const Expanded(
+                  child: Text("En cochant .....j'accepte les conditions d'utilisation"),
+                )
+
+              ],
+            ),
+
+            SizedBox(
+              height: 2.h,
+            ),
+
+
             // lien de mot de passe oublie
             InkWell(
               onTap: () {
-                print("==> Mot de passe oublié");
+                print("==> Inscription");
               },
               child: const Text(
                 "Mot de passe oublié",
@@ -89,29 +138,23 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 2.h,
             ),
 
-            // Container(
-            //   child: ElevatedButton(onPressed: () {},
-            //       style: ButtonStyle(
-            //           backgroundColor: WidgetStateProperty.all(AppColors.secondary)
-            //       ),
-            //       child: const Text("Connexion")
-            //   ),
-            // ),
-
-             CustomerButton(
-                title: "Connexion"
-                , onTap: (){}
-                 //,color: AppColors.appBarTitleColor,
-            ),
 
             CustomerButton(
                 title: "S'inscrire"
+                , onTap: (){}
+              //,color: AppColors.appBarTitleColor,
+            ),
+
+            CustomerButton(
+                title: "Connexion"
                 , onTap: (){
-              final route = MaterialPageRoute(builder: (ctxt) => RegisterScreen() );
-              Navigator.push(context, route);
+                  final route = MaterialPageRoute(builder: (ctxt) => LoginScreen() );
+                  Navigator.pushReplacement(context, route);
             }
               //,color: AppColors.appBarTitleColor,
             ),
+
+
 
 
 
