@@ -1,7 +1,9 @@
 import 'package:bridgebank_social_app/configuration/constants.dart';
 import 'package:bridgebank_social_app/ui/screens/auth/register_screen.dart';
+import 'package:bridgebank_social_app/ui/screens/main/main_screen.dart';
 import 'package:bridgebank_social_app/ui/widgets/customer_button.dart';
 import 'package:bridgebank_social_app/ui/widgets/customer_text_field.dart';
+import 'package:bridgebank_social_app/ui/widgets/progess_indicator_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
 
@@ -97,22 +99,33 @@ class _LoginScreenState extends State<LoginScreen> {
             //   ),
             // ),
 
-             CustomerButton(
-                title: "Connexion"
-                , onTap: (){}
-                 //,color: AppColors.appBarTitleColor,
-            ),
+            CustomerButton(
+                title: "Connexion",
+                onTap: () {
+                  // final route = MaterialPageRoute(
+                  //     builder: (ctxt) => const MainScreen(
+                  //           title: "Message Page",
+                  //         ));
+
+                           final route = MaterialPageRoute(
+                      builder: (ctxt) => const MyProgessIndicatorApp()
+                      );
+
+
+                  Navigator.pushReplacement(context, route);
+                }
+                //,color: AppColors.appBarTitleColor,
+                ),
 
             CustomerButton(
-                title: "S'inscrire"
-                , onTap: (){
-              final route = MaterialPageRoute(builder: (ctxt) => const RegisterScreen() );
-              Navigator.push(context, route);
-            }
-              //,color: AppColors.appBarTitleColor,
-            ),
-
-
+                title: "S'inscrire",
+                onTap: () {
+                  final route = MaterialPageRoute(
+                      builder: (ctxt) => const RegisterScreen());
+                  Navigator.push(context, route);
+                }
+                //,color: AppColors.appBarTitleColor,
+                ),
 
             //todo MOT DE PASSE
             //todo BOUTON CONNEXION
