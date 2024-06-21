@@ -4,7 +4,7 @@ abstract class BackendService{
 
   Future<Session> signIn({required String email, required String password});
 
-  Future<String> signUp({
+  Future<Session> signUp({
     required String firstName,
     required String lastName,
     required String email,

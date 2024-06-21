@@ -16,5 +16,20 @@ void main(){
 
   });
 
+  test("Check register successful", ()async{
+
+    final res = await BackendRestService()
+        .signUp(
+        firstName: "Ange",
+        lastName: "Bagui",
+        email: "${DateTime.now().microsecond}@adjemin.com",
+        password: "123456789");
+
+    print("Body Response => $res");
+
+    expect(res is Session, true);
+
+  });
+
 
 }
