@@ -1,3 +1,4 @@
+import 'package:bridgebank_social_app/configuration/colors.dart';
 import 'package:bridgebank_social_app/configuration/constants.dart';
 import 'package:bridgebank_social_app/ui/screens/auth/login_screen.dart';
 import 'package:bridgebank_social_app/ui/widgets/customer_button.dart';
@@ -35,13 +36,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
             _buildLogoUi(),
 
             Center(
-              child: Text(
-                "Inscription",
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineLarge
-                    ?.copyWith(fontWeight: FontWeight.bold),
-              ),
+              child: Container(
+                padding: const EdgeInsets.only(left: 10),
+                color: const Color.fromARGB(255, 255, 0, 0),
+                //decoration: BoxDecoration(color: Color(Colors.blue)),
+                child: Text(
+                  "Inscription",
+                  style: Theme.of(context)
+                      .textTheme
+                      .headlineLarge
+                      ?.copyWith(fontWeight: FontWeight.bold),
+                ),
+              )
             ),
 
             Center(

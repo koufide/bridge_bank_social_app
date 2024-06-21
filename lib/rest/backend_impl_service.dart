@@ -39,7 +39,7 @@ class BackendImplService extends BackendService{
       }
       throw Exception(Session);
     }else{
-      throw Exception(Session);
+      throw Exception(response.body);
       //throw Exception(response.body);
     }
 

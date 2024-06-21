@@ -6,7 +6,7 @@ void main(){
 
   test("check login successful", ()async{
     final res = await BackendImplService()
-    .signIn(email: "angebagui@adjemin.com", password: "123456789A");
+    .signIn(email: "angebagui@adjemin.com", password: "123456789");
 
     print("Body response ==> $res");
     expect(res is String, true);
