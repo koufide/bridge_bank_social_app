@@ -13,6 +13,7 @@ class Session {
 
   Session({this.user, this.authorisation});
 
+
   // // create from json
   // Session.fromJson(Map<String, dynamic> json) {
   //   if (json['user']!=null) {
