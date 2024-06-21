@@ -11,11 +11,11 @@ class Session {
 
   // create from json
   Session.fromJson(Map<String, dynamic> json) {
-    if (json['user']) {
+    if (json['user']!=null) {
       user = User.fromJson(json['user'] as Map<String, dynamic>);
     }
 
-    if (json['authorization']) {
+    if (json['authorization']!=null) {
       authorisation =
           Authorisation.fromJson(json['authorization'] as Map<String, dynamic>);
     }

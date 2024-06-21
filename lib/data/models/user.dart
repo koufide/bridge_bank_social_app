@@ -6,10 +6,10 @@ class User {
   String? photo;
   DateTime? createdAt;
   DateTime? updatedAt;
+//DateTime? deletedAt;
 
   User({this.id, this.firstName, this.lastName, this.email, this.photo,
       this.createdAt, this.updatedAt});
-//DateTime? deletedAt;
 
   User.fromJson(Map<String, dynamic> json){
     id = json['id'];
