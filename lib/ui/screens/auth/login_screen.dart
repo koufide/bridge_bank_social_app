@@ -1,9 +1,9 @@
 import 'package:bridgebank_social_app/configuration/constants.dart';
 import 'package:bridgebank_social_app/ui/screens/auth/register_screen.dart';
-import 'package:bridgebank_social_app/ui/screens/main/main_screen.dart';
 import 'package:bridgebank_social_app/ui/widgets/customer_button.dart';
 import 'package:bridgebank_social_app/ui/widgets/customer_text_field.dart';
 import 'package:bridgebank_social_app/ui/widgets/progess_indicator_app.dart';
+import 'package:bridgebank_social_app/ui/widgets/progress_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
 
@@ -18,12 +18,31 @@ class _LoginScreenState extends State<LoginScreen> {
   final FocusNode _focusNode = FocusNode();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool _isLoading = false;
+
+  void _showProgress(){
+    _isLoading = true;
+    if(mounted){
+      setState(() {
+
+      });
+    }
+  }
+
+  void hideProgress(){
+    _isLoading = false;
+    if(mounted) {
+      setState(() {
+
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       // appBar: AppBar(title: const Text(""),       ),
-      body: SingleChildScrollView(
+      body: _isLoading?ProgressUi():SingleChildScrollView(
         child: Column(
           children: [
             SizedBox(
@@ -112,7 +131,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       );
 
 
-                  Navigator.pushReplacement(context, route);
+                           //Navigator.pushReplacement(context, route);
+                           Navigator.push(context, route);
+
                 }
                 //,color: AppColors.appBarTitleColor,
                 ),
@@ -127,10 +148,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 //,color: AppColors.appBarTitleColor,
                 ),
 
-            //todo MOT DE PASSE
-            //todo BOUTON CONNEXION
-            //todo BOUTON OU LIEN INSCRIPTION
-            //todo LIEN MOT DE PASSE OUBLIE
           ],
         ),
       ),
@@ -145,4 +162,17 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
+
+  // Widget _buildProgressUi(){
+  //   return Stack(
+  //     children: [
+  //       Container(
+  //         // todo yyy
+  //       ),
+  //       Center(
+  //
+  //       ),
+  //     ],
+  //   )
+  // }
 }
