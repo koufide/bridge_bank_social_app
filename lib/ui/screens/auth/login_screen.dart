@@ -15,7 +15,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final FocusNode _focusNode = FocusNode();
+  // final FocusNode _focusNode = FocusNode();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _isLoading = false;
@@ -29,7 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  void hideProgress(){
+  void _hideProgress(){
     _isLoading = false;
     if(mounted) {
       setState(() {
@@ -42,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       // appBar: AppBar(title: const Text(""),       ),
-      body: _isLoading?ProgressUi():SingleChildScrollView(
+      body: _isLoading?const ProgressUi():SingleChildScrollView(
         child: Column(
           children: [
             SizedBox(
