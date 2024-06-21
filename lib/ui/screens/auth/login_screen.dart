@@ -2,6 +2,7 @@ import 'package:bridgebank_social_app/configuration/constants.dart';
 import 'package:bridgebank_social_app/ui/screens/auth/register_screen.dart';
 import 'package:bridgebank_social_app/ui/widgets/custom_button.dart';
 import 'package:bridgebank_social_app/ui/widgets/custom_text_field.dart';
+import 'package:bridgebank_social_app/ui/widgets/progress_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
 import 'package:bridgebank_social_app/configuration/colors.dart';
@@ -20,14 +21,32 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  bool _isLoading = false;
+  
+
+  void _showProgress(){
+    _isLoading = true;
+    if(mounted){
+      setState(() {
+
+      });
+    }
+  }
+
+  void _hideProgress(){
+    _isLoading = false;
+    if(mounted){
+      setState(() {
+
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
 
-
-
     return Scaffold(
-      body: SingleChildScrollView(
+      body:_isLoading?ProgressUi():SingleChildScrollView(
         child: Column(
           children: [
 
@@ -37,8 +56,8 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(height: 4.h,),
             Center(
               child: Text("Connexion", style: Theme.of(context).textTheme
-                .headlineLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
+                  .headlineLarge?.copyWith(
+                fontWeight: FontWeight.bold,
               ),),
             ),
             Center(
@@ -72,8 +91,8 @@ class _LoginScreenState extends State<LoginScreen> {
               },
               child: const Text("Mot de passe oublié?",
                 style: TextStyle(
-                  decoration: TextDecoration.underline
-              ),),
+                    decoration: TextDecoration.underline
+                ),),
             ),
 
             SizedBox(height: 2.h,),
@@ -82,7 +101,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 title: "Se connecter",
                 onTap: (){
 
-            }),
+
+                }),
             SizedBox(height: 2.h,),
             CustomButton(
                 title: "S'inscrire",
@@ -95,7 +115,7 @@ class _LoginScreenState extends State<LoginScreen> {
             //TODO Bouton Inscription
           ],
         ),
-      ),
+      )
     );
   }
 
@@ -106,4 +126,6 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
+
+
 }

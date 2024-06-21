@@ -104,7 +104,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                       });
                     },
-                    child: Text("J'accepte les conditions d'utilisations en cochant cette case. Cette action est obligatoire pour votre inscription."),
+                    child: Text("J'accepte les conditions d'utilisations en cochant cette case. "
+                        "Cette action est obligatoire pour votre inscription.",
+                    ),
                   ),
                 )
               ],

@@ -40,8 +40,8 @@ class MyApp extends StatelessWidget {
               fontFamily: "Poppins"
             ),
             //home: MainScreen(title: "BB Social",)
-         // home: LoginScreen(),
-          home: const RegisterScreen(),
+          home: LoginScreen(),
+          //home: const RegisterScreen(),
         );
       },
     );
