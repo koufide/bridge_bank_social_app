@@ -7,7 +7,7 @@ void main(){
   test("Check login successful", ()async{
 
     final res = await BackendRestService()
-        .signIn(email: "angebagui@adjemin.com",
+        .signIn(email: "koufide@adjemin.com",
         password: "123456789");
 
     print("Body Response => $res");
