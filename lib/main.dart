@@ -1,6 +1,4 @@
 import 'package:bridgebank_social_app/ui/screens/auth/login_screen.dart';
-import 'package:bridgebank_social_app/ui/screens/auth/register_screen.dart';
-import 'package:bridgebank_social_app/ui/screens/main/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
 
@@ -40,7 +38,7 @@ class MyApp extends StatelessWidget {
               fontFamily: "Poppins"
             ),
             //home: MainScreen(title: "BB Social",)
-          home: LoginScreen(),
+          home: const LoginScreen(),
           //home: const RegisterScreen(),
         );
       },

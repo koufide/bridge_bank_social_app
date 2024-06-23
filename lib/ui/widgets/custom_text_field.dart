@@ -1,6 +1,5 @@
 import 'package:bridgebank_social_app/configuration/colors.dart';
 import 'package:bridgebank_social_app/configuration/constants.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class DefaultTextField extends StatefulWidget {

@@ -11,7 +11,7 @@ class ProgressUi extends StatelessWidget {
         Container(
           color: Colors.white,
         ),
-        Center(
+        const Center(
           child: CircularProgressIndicator(
             color: AppColors.secondary,
           ),

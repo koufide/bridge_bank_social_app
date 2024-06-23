@@ -7,8 +7,8 @@ import 'package:http/http.dart';
 
 class BackendRestService extends BackendService{
 
-  static final String BASE_URL = "https://api-socialapp.adjemincloud.com";
-  static final String API_URL = "$BASE_URL/api/v1";
+  static const String BASE_URL = "https://api-socialapp.adjemincloud.com";
+  static const String API_URL = "$BASE_URL/api/v1";
 
   @override
   Future<Session> signIn({

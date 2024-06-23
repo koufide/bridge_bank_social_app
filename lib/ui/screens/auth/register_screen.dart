@@ -45,7 +45,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),),
             ),
             Container(
-              padding: EdgeInsets.only(left: Constants.defaultPadding,right: Constants.defaultPadding),
+              padding: const EdgeInsets.only(left: Constants.defaultPadding,right: Constants.defaultPadding),
               child: Text("Rejoignez nous maintenant ! Ouvrez un compte pour accéder à la communauté.",
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme
@@ -104,7 +104,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                       });
                     },
-                    child: Text("J'accepte les conditions d'utilisations en cochant cette case. "
+                    child: const Text("J'accepte les conditions d'utilisations en cochant cette case. "
                         "Cette action est obligatoire pour votre inscription.",
                     ),
                   ),
@@ -123,7 +123,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 title: "Se connecter",
                 color: AppColors.primary,
                 onTap: (){
-                  final route = MaterialPageRoute(builder: (ctxt) => LoginScreen());
+                  final route = MaterialPageRoute(builder: (ctxt) => const LoginScreen());
                   Navigator.pushReplacement(context, route);
                 }),
             //TODO Bouton Inscription
