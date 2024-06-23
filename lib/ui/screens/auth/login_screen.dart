@@ -1,5 +1,6 @@
 import 'package:bridgebank_social_app/configuration/constants.dart';
 import 'package:bridgebank_social_app/data/models/session.dart';
+import 'package:bridgebank_social_app/main.dart';
 import 'package:bridgebank_social_app/ui/screens/auth/register_screen.dart';
 import 'package:bridgebank_social_app/ui/widgets/custom_button.dart';
 import 'package:bridgebank_social_app/ui/widgets/custom_text_field.dart';
@@ -57,12 +58,25 @@ class _LoginScreenState extends State<LoginScreen> {
       final Session res =
           await BackendRestService().signIn(email: email, password: password);
       print("RES ==> " + res.user.toString());
+
+      // Afficher un message de succès et rediriger vers la page d'accueil
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Connexion réussie')),
+      );
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => MyHomePage(title: "Accueil")),
+      );
+
+
     } on Exception catch (e) {
       print('RES ==> Failed to login: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Échec de la connexion: $e')),
+      );
     }
 
-    // res.
-    // print("Body Response => ${res.user.toString()}");
   }
 
   @override
