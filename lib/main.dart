@@ -3,21 +3,22 @@ import 'package:bridgebank_social_app/ui/screens/auth/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
 
-void main()  {
+void main() async  {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // await AppSetup.init();
-  // final Widget firstScreen = AppSetup.start();
+  await AppSetup.init();
+  final Widget firstScreen = AppSetup.start();
 
-  runApp( const MyApp());
+  runApp(  MyApp(firstScreen));
+  // runApp( const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  // final Widget homeScreen;
+  final Widget homeScreen;
 
 
-  // const MyApp({super.key, required this.homeScreen});
-  const MyApp({super.key});
+  const MyApp({super.key, required this.homeScreen});
+  // const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
@@ -47,8 +48,8 @@ class MyApp extends StatelessWidget {
               fontFamily: "Poppins"
             ),
             //home: MainScreen(title: "BB Social",)
-          // home: homeScreen,
-          home: const LoginScreen(),
+          home: homeScreen,
+          // home: const LoginScreen(),
           //home: const RegisterScreen(),
         );
       },
