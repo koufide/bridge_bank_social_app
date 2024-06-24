@@ -85,7 +85,9 @@ class Conversation{
     list.sort((a,b)=>b.createdAt!.compareTo(a.createdAt!));
 
     if(list.isNotEmpty){
-      return list.first.content??"Non disponible";
+      if(list.first.contentType == MessageContentType.text.name){
+        return list.first.content??"";
+      }
     }
 
     return "";

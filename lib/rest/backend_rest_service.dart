@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:bridgebank_social_app/data/models/conversation.dart';
+import 'package:bridgebank_social_app/data/models/message.dart';
 import 'package:bridgebank_social_app/data/models/session.dart';
 import 'package:bridgebank_social_app/rest/backend_service.dart';
 import 'package:bridgebank_social_app/rest/exception/auth/auth_exception.dart';
@@ -53,6 +55,7 @@ class BackendRestService extends BackendService{
     required String lastName,
     required String email,
     required String password})async {
+    
     final Uri url = Uri.parse("$API_URL/user_register");
 
     final Response response = await post(url,
@@ -86,6 +89,135 @@ class BackendRestService extends BackendService{
       final String message =
       json.containsKey("message")?json['message']:"Bad request";
       throw ArgumentError(message);
+    }else{
+      throw Exception(response.body);
+    }
+  }
+
+  @override
+  Future<Conversation> openConversation({
+    required List<int> speakers,
+    bool isGroup = false,
+    String groupName = "",
+    List<int>? admins}) async{
+    final Uri url = Uri.parse("$API_URL/open_conversation");
+    //TODO Load Session from cache
+    //Get Access Token
+    final Session session = await signIn(email: "angebagui@adjemin.com", password: "123456789");
+    final String? token = session.authorization?.token;
+    print("Authorization: Bearer $token");
+
+    final Response response = await post(url,
+    body: jsonEncode({
+      "speakers": speakers,
+      "is_group":isGroup,
+      "group_name":groupName,
+      "admins":admins??[]
+    }), headers: {
+          "Accept":"application/json",
+          "Content-Type":"application/json",
+          "Authorization":"Bearer $token"
+        });
+
+    if(response.statusCode == 200){
+      final Map<String, dynamic>? json = jsonDecode(response.body);
+
+      if(json == null){
+        throw Exception(response.body);
+      }
+
+      if(json.containsKey("success") && json['success'] == true && json['data'] != null){
+        final Map<String, dynamic> jsonData = json['data'];
+        return Conversation.fromJson(jsonData);
+      }
+
+      throw Exception(response.body);
+
+    }else if(response.statusCode >=400 && response.statusCode <500){
+      if(response.headers['content-type'] == "application/json"){
+        final Map<String, dynamic> json = jsonDecode(response.body);
+
+        if(json.containsKey("message") && json['message'] != null){
+          if(json['message'].isEmpty){
+            throw ArgumentError("Bad request");
+          }else{
+            if(response.statusCode == 401){
+              throw AuthException(json['message']);
+            }else{
+              throw ArgumentError(json['message']);
+            }
+          
+          }
+
+        }
+      }
+
+      throw Exception(response.body);
+
+    }else{
+      throw Exception(response.body);
+    }
+  }
+
+  @override
+  Future<Message> sendMessage({
+    required String content,
+    required String contentType,
+    required int senderId,
+    required int conversationId})async {
+    final Uri url = Uri.parse("$API_URL/messages");
+    //TODO Load Session from cache
+    //Get Access Token
+    final Session session = await signIn(email: "angebagui@adjemin.com", password: "123456789");
+    final String? token = session.authorization?.token;
+    print("Authorization: Bearer $token");
+
+    final Response response = await post(url,
+        body: {
+          "content": content,
+          "content_type":contentType,
+          "sender_id":"$senderId",
+          "conversation_id":"$conversationId"
+        }, headers: {
+          "Accept":"application/json",
+          "Authorization":"Bearer $token"
+        });
+
+    if(response.statusCode == 200){
+      final Map<String, dynamic>? json = jsonDecode(response.body);
+
+      if(json == null){
+        throw Exception(response.body);
+      }
+
+      if(json.containsKey("success") && json['success'] == true && json['data'] != null){
+        final Map<String, dynamic> jsonData = json['data'];
+        return Message.fromJson(jsonData);
+      }
+
+      throw Exception(response.body);
+
+    }else if(response.statusCode >=400 && response.statusCode <500){
+      if(response.headers['content-type'] == "application/json"){
+        final Map<String, dynamic> json = jsonDecode(response.body);
+
+        if(json.containsKey("message") && json['message'] != null){
+          if(json['message'].isEmpty){
+            throw ArgumentError("Bad request");
+          }else{
+            if(response.statusCode == 401){
+              throw AuthException(json['message']);
+            }else{
+              throw ArgumentError(json['message']);
+            }
+
+          }
+
+        }
+      }
+
+      throw Exception(response.body);
+
     }else{
       throw Exception(response.body);
     }
