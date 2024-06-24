@@ -1,25 +1,25 @@
 import 'package:bridgebank_social_app/data/models/sender.dart';
+import 'package:bridgebank_social_app/data/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'message.g.dart'; 
+part 'message.g.dart';
 
 @JsonSerializable()
-class Message{
-
-  Sender? sender;
+class Message {
+  User? sender;
   String? content;
   @JsonKey(name: "content_type")
   String? contentType;
-  @JsonKey(name:  "sender_id")
+  @JsonKey(name: "sender_id")
   int? senderId;
-  @JsonKey(name:  "conversation_id")
+  @JsonKey(name: "conversation_id")
   int? conversationId;
   @JsonKey(name: "is_read")
   bool isRead;
   @JsonKey(name: "is_received")
   bool isReceived;
-  @JsonKey(name:"is_sent")
+  @JsonKey(name: "is_sent")
   bool isSent;
   @JsonKey(name: "updated_at")
   DateTime? updatedAt;
@@ -27,22 +27,21 @@ class Message{
   DateTime? createdAt;
   int? id;
 
-Message({
-  this.sender,
-  this.content,
- this.contentType,
- this.senderId,
- this.conversationId,
- this.isRead,
- this.isReceived,
- this.isSent,
- this.updatedAt,
-this.createdAt,
-this.id,
-});
+  Message({
+    this.sender,
+    this.content,
+    this.contentType,
+    this.senderId,
+    this.conversationId,
+    this.isRead,
+    this.isReceived,
+    this.isSent,
+    this.updatedAt,
+    this.createdAt,
+    this.id,
+  });
 
-
-    factory Message.fromJson(Map<String, dynamic> json) => _$MessageFromJson(json);
+  factory Message.fromJson(Map<String, dynamic> json) =>
+      _$MessageFromJson(json);
   Map<String, dynamic> toJson() => _$MessageToJson(this);
-
 }
