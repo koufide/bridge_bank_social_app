@@ -27,4 +27,12 @@ class User{
   String toString() {
     return 'User{id: $id, firstName: $firstName, lastName: $lastName, email: $email, photo: $photo, createdAt: $createdAt, updatedAt: $updatedAt}';
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is User && runtimeType == other.runtimeType && id == other.id;
+
+  @override
+  int get hashCode => id.hashCode;
 }

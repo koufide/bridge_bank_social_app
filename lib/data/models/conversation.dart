@@ -42,4 +42,84 @@ class Conversation{
 
   factory Conversation.fromJson(Map<String, dynamic> json) => _$ConversationFromJson(json);
   Map<String, dynamic> toJson() => _$ConversationToJson(this);
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Conversation &&
+          runtimeType == other.runtimeType &&
+          id == other.id;
+
+  @override
+  int get hashCode => id.hashCode;
+
+  //TODO isConnected()
+  bool isConnected(){
+    return true;
+  }
+
+  String senderName(User me){
+    if(isGroup){
+      return groupName??"Inconnu";
+    }
+
+    if(users.isEmpty){
+      return "Inconnu";
+    }
+
+    final List<User> list = users.where((sender)=> sender != me).toList();
+    if(list.isNotEmpty){
+      return '${list.first.firstName} ${list.first.lastName}';
+    }
+
+    return "Inconnu";
+  }
+
+  String messageContent(){
+
+    if(messages.isEmpty){
+      return "";
+    }
+
+    List<Message> list = messages.where((message)=> message.isRead != true).toList();
+    list.sort((a,b)=>b.createdAt!.compareTo(a.createdAt!));
+
+    if(list.isNotEmpty){
+      return list.first.content??"Non disponible";
+    }
+
+    return "";
+  }
+
+  DateTime? lastMessageDate(){
+
+    if(messages.isEmpty){
+      return null;
+    }
+
+    List<Message> list = messages.where((message)=> message.isRead != true).toList();
+    list.sort((a,b)=>b.createdAt!.compareTo(a.createdAt!));
+
+    if(list.isNotEmpty){
+      return list.first.createdAt;
+    }
+
+    return null;
+  }
+
+  int unReadCount(){
+
+    if(messages.isEmpty){
+      return 0;
+    }
+
+    List<Message> list = messages.where((message)=> message.isRead != true).toList();
+    list.sort((a,b)=>b.createdAt!.compareTo(a.createdAt!));
+
+    if(list.isNotEmpty){
+      return list.length;
+    }
+
+    return 0;
+  }
 }

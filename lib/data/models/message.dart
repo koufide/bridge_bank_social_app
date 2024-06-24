@@ -49,5 +49,11 @@ class Message{
   factory Message.fromJson(Map<String, dynamic> json) => _$MessageFromJson(json);
   Map<String, dynamic> toJson() => _$MessageToJson(this);
 
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Message && runtimeType == other.runtimeType && id == other.id;
 
+  @override
+  int get hashCode => id.hashCode;
 }
