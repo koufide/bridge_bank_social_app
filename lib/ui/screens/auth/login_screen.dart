@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
 import 'package:bridgebank_social_app/configuration/colors.dart';
 import 'package:bridgebank_social_app/rest/backend_rest_service.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -64,10 +65,21 @@ class _LoginScreenState extends State<LoginScreen> {
         SnackBar(content: Text('Connexion réussie')),
       );
 
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => MyHomePage(title: "Accueil")),
-      );
+      // Navigator.pushReplacement(
+      //   context,
+      //   MaterialPageRoute(builder: (context) => MyHomePage(title: "Accueil")),
+      // );
+
+      // Fluttertoast.showToast(
+      //     msg: "This is Center Short Toast",
+      //     toastLength: Toast.LENGTH_SHORT,
+      //     gravity: ToastGravity.CENTER,
+      //     timeInSecForIosWeb: 1,
+      //     backgroundColor: Colors.red,
+      //     textColor: Colors.white,
+      //     fontSize: 16.0
+      // );
+
 
 
     } on Exception catch (e) {

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:bridgebank_social_app/app_setup.dart';
 import 'package:bridgebank_social_app/data/models/conversation.dart';
 import 'package:bridgebank_social_app/data/models/message.dart';
 import 'package:bridgebank_social_app/data/models/session.dart';
@@ -84,15 +85,22 @@ class BackendRestService extends BackendService {
 
   @override
   Future<Conversation> openConversation(
-      {required List<int> speakers,
+      {
+        required List<int> speakers,
       bool isGroup = false,
       String groupName = "",
       List<int>? admins}) async {
     final Uri url = Uri.parse("$API_URL/open_conversation");
 
-    final Session session =
-        await signIn(email: "vincent@adjemin.com", password: "123456789");
-    final String? token = session.authorization?.token;
+    // final Session session =
+    //     await signIn(email: "vincent@adjemin.com", password: "123456789");
+    // final String? token = session.authorization?.token;
+    //
+
+    final Session? session = AppSetup.me;
+    final String? token = session?.authorization?.token;
+
+
     print("authorization : Bearer $token");
 
     final Response response = await post(url,
@@ -123,6 +131,8 @@ class BackendRestService extends BackendService {
       }
 
       throw Exception(response.body);
+
+
     } else if (response.statusCode >= 400 && response.statusCode < 500) {
       if (response.headers['content-type'] == "application/json") {
         final Map<String, dynamic> json = jsonDecode(response.body);
@@ -143,18 +153,22 @@ class BackendRestService extends BackendService {
 
   @override
   Future<Message> sendMessage(
-      {required String content,
+      {
+        required String content,
       required String contentType,
       required int senderId,
       required int conversationId}) async {
-    // TODO: implement sendMessage
     // throw UnimplementedError();
 
     final Uri url = Uri.parse("$API_URL/messages");
 
-    final Session session =
-        await signIn(email: "vincent@adjemin.com", password: "123456789");
-    final String? token = session.authorization?.token;
+    final Session? session = AppSetup.me;
+
+    // final Session session =
+    //     await signIn(email: "vincent@adjemin.com", password: "123456789");
+
+    final String? token = session?.authorization?.token;
+
     print("authorization : Bearer $token");
 
     final Response response = await post(url,

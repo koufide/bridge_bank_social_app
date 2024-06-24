@@ -128,32 +128,33 @@ class ConversationItemWidget extends StatelessWidget {
             child: Container(
               width: Adaptive.w(4),
               height: Adaptive.h(4),
-              decoration: BoxDecoration(
-                  color: conversation.isConnected?
-                  AppColors.connectedUserColor:
-                  AppColors.unConnectedUserColor,
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                      color: Colors.white,
-                      width: 5.0
-                  )
-
-              ),
+              // decoration: BoxDecoration(
+              //     color: conversation.isConnected?
+              //     AppColors.connectedUserColor:
+              //     AppColors.unConnectedUserColor,
+              //     shape: BoxShape.circle,
+              //     border: Border.all(
+              //         color: Colors.white,
+              //         width: 5.0
+              //     )
+              //
+              // ),
             ),
           )
         ],
       ),
-      title: Text(conversation.senderName??'Unknown name', style: const TextStyle(
-          fontWeight: FontWeight.bold
-      ),),
-      subtitle: Text(conversation.messageContent??'Unavailable message'),
+      // title: Text(conversation.senderName??'Unknown name', style: const TextStyle(
+      //     fontWeight: FontWeight.bold
+      // ),
+      // ),
+      // subtitle: Text(conversation.messageContent??'Unavailable message'),
       trailing: Column(
         children: [
-          Text(conversation.lastMessageDate == null?"":intl.DateFormat("Hm").format(
-              conversation.lastMessageDate!), style: const TextStyle(
-            color: AppColors.conversationDateColor,
-            fontSize: 14,
-          ),),
+          // Text(conversation.lastMessageDate == null?"":intl.DateFormat("Hm").format(
+          //     conversation.lastMessageDate!), style: const TextStyle(
+          //   color: AppColors.conversationDateColor,
+          //   fontSize: 14,
+          // ),),
 
           Offstage(
             offstage: conversation.unReadCount == 0,

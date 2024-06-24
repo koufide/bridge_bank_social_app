@@ -12,24 +12,19 @@ abstract class BackendService {
       required String password});
 // }
 
+  Future<Conversation> openConversation({
+    required List<int> speakers,
+    bool isGroup = false,
+    String groupName = "",
+    List<int>? admins,
+  });
 
-Future<Conversation> openConversation(
-    {
-      required List<int> speakers,
-       bool isGroup = false,
-      String  groupName="",
-      List<int>? admins,
-    });
+  Future<Message> sendMessage({
+    required String content,
+    required String contentType,
+    required int senderId,
+    required int conversationId,
+  });
 
-  Future<Message> sendMessage(
-      {
-        required String content,
-        required String contentType,
-        required int  senderId,
-        required int conversationId,
-      });
-
-
-
-
+  //TODO LOAD
 }
