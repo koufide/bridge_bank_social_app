@@ -176,6 +176,17 @@ class _LoginScreenState extends State<LoginScreen> {
       print("Session  $value");
       _hideProgress();
 
+      AppSetup.localStorageService.storeConnectedUser(value)
+      .whenComplete((){
+
+        AppSetup.toastLongSuccess("Connexion réussie !");
+
+        final newRoute = MaterialPageRoute(builder: (context)=> AppSetup.start());
+        Navigator.pushAndRemoveUntil(context, newRoute, (_) => false);
+
+      });
+
+
     }).catchError((error){
       _hideProgress();
       print("LoginScreen._submitLogin() =>> Error => $error");
@@ -185,8 +196,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
       }else if(error is SocketException || error is Client){
         AppSetup.toastLong("S'il vous plâit, veuillez vérifier votre connexion internet");
-      }else{
+      }else if(error is ArgumentError){
 
+      }else if(error is Exception){
+
+      }else{
+        AppSetup.toastLong(error.message);
       }
 
 
