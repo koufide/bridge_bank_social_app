@@ -34,7 +34,7 @@ Map<String, dynamic> _$MessageToJson(Message instance) => <String, dynamic>{
       'conversation_id': instance.conversationId,
       'is_read': instance.isRead,
       'is_received': instance.isReceived,
-      'is_sent': instance.isSent,
+      'is_group': instance.isSent,
       'updated_at': instance.updatedAt?.toIso8601String(),
       'created_at': instance.createdAt?.toIso8601String(),
       'id': instance.id,

@@ -6,18 +6,18 @@ part 'sender.g.dart';
 class Sender{
   int? id;
   @JsonKey(name: "first_name")
-  String firstName;
+  String? firstName;
   @JsonKey(name: "last_name")
-  String LastName;
-  String email;
-  String password;
+  String? LastName;
+  String? email;
+  String? password;
   String? photo;
   @JsonKey(name: "created_at")
-  DateTime createdAt;
+  DateTime? createdAt;
    @JsonKey(name: "updated_at")
-  DateTime updatedAt;
+  DateTime? updatedAt;
   @JsonKey(name: "deleted_at")
-  DateTime deletedAt;
+  DateTime? deletedAt;
 
   Sender({
     this.id,

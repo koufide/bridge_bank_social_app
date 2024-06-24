@@ -5,6 +5,10 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'message.g.dart';
 
+enum MessageContentType {
+  text, audio, video
+}
+
 @JsonSerializable()
 class Message {
   User? sender;
@@ -19,6 +23,8 @@ class Message {
   bool isRead;
   @JsonKey(name: "is_received")
   bool isReceived;
+  @JsonKey(name: "is_group")
+  // bool isGroup;
   @JsonKey(name: "is_sent")
   bool isSent;
   @JsonKey(name: "updated_at")
@@ -33,9 +39,10 @@ class Message {
     this.contentType,
     this.senderId,
     this.conversationId,
-    this.isRead,
-    this.isReceived,
-    this.isSent,
+    required this.isRead,
+    required this.isReceived,
+    required this.isSent,
+    // this.isGroup,
     this.updatedAt,
     this.createdAt,
     this.id,
@@ -44,4 +51,7 @@ class Message {
   factory Message.fromJson(Map<String, dynamic> json) =>
       _$MessageFromJson(json);
   Map<String, dynamic> toJson() => _$MessageToJson(this);
+
+
+
 }
