@@ -16,4 +16,8 @@ class Session{
 
   Map<String, dynamic> toJson() => _$SessionToJson(this);
 
+  @override
+  String toString() {
+    return 'Session{user: $user, authorization: $authorization}';
+  }
 }

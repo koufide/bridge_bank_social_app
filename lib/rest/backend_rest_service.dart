@@ -1,8 +1,11 @@
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:bridgebank_social_app/app_setup.dart';
 import 'package:bridgebank_social_app/data/models/conversation.dart';
 import 'package:bridgebank_social_app/data/models/message.dart';
 import 'package:bridgebank_social_app/data/models/session.dart';
+import 'package:bridgebank_social_app/data/storage/local_storage_service.dart';
 import 'package:bridgebank_social_app/rest/backend_service.dart';
 import 'package:bridgebank_social_app/rest/exception/auth/auth_exception.dart';
 import 'package:http/http.dart';
@@ -101,10 +104,10 @@ class BackendRestService extends BackendService{
     String groupName = "",
     List<int>? admins}) async{
     final Uri url = Uri.parse("$API_URL/open_conversation");
-    //TODO Load Session from cache
     //Get Access Token
-    final Session session = await signIn(email: "angebagui@adjemin.com", password: "123456789");
-    final String? token = session.authorization?.token;
+    final Session? session = AppSetup.me;
+    //final Session session = await signIn(email: "angebagui@adjemin.com", password: "123456789");
+    final String? token = session?.authorization?.token;
     print("Authorization: Bearer $token");
 
     final Response response = await post(url,
@@ -166,10 +169,11 @@ class BackendRestService extends BackendService{
     required int senderId,
     required int conversationId})async {
     final Uri url = Uri.parse("$API_URL/messages");
-    //TODO Load Session from cache
+
     //Get Access Token
-    final Session session = await signIn(email: "angebagui@adjemin.com", password: "123456789");
-    final String? token = session.authorization?.token;
+    final Session? session = AppSetup.me;
+    //final Session session = await signIn(email: "angebagui@adjemin.com", password: "123456789");
+    final String? token = session?.authorization?.token;
     print("Authorization: Bearer $token");
 
     final Response response = await post(url,
@@ -179,8 +183,8 @@ class BackendRestService extends BackendService{
           "sender_id":"$senderId",
           "conversation_id":"$conversationId"
         }, headers: {
-          "Accept":"application/json",
-          "Authorization":"Bearer $token"
+          HttpHeaders.acceptHeader:"application/json",
+          HttpHeaders.authorizationHeader:"Bearer $token"
         });
 
     if(response.statusCode == 200){

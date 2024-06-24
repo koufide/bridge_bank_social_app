@@ -1,4 +1,9 @@
+import 'dart:io';
+
+import 'package:bridgebank_social_app/app_setup.dart';
 import 'package:bridgebank_social_app/configuration/constants.dart';
+import 'package:bridgebank_social_app/data/models/session.dart';
+import 'package:bridgebank_social_app/rest/exception/auth/auth_exception.dart';
 import 'package:bridgebank_social_app/ui/screens/auth/register_screen.dart';
 import 'package:bridgebank_social_app/ui/widgets/custom_button.dart';
 import 'package:bridgebank_social_app/ui/widgets/custom_text_field.dart';
@@ -6,6 +11,8 @@ import 'package:bridgebank_social_app/ui/widgets/progress_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
 import 'package:bridgebank_social_app/configuration/colors.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart';
 
 class LoginScreen extends StatefulWidget {
 
@@ -99,10 +106,8 @@ class _LoginScreenState extends State<LoginScreen> {
             //Bouton Connexion
             CustomButton(
                 title: "Se connecter",
-                onTap: (){
-
-
-                }),
+                onTap: _submitLogin
+                ),
             SizedBox(height: 2.h,),
             CustomButton(
                 title: "S'inscrire",
@@ -125,6 +130,69 @@ class _LoginScreenState extends State<LoginScreen> {
       width: 60.w,
       ),
     );
+  }
+
+  void _submitLogin() {
+
+    //Check Inputs
+    if(_emailController.text.isEmpty){
+      //Show Email est obligatoire
+      Fluttertoast.showToast(
+          msg: "Email est obligatoire",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.black,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
+
+      return;
+    }
+
+    if(_passwordController.text.isEmpty){
+      //Show Mot de passe est obligatoire
+      Fluttertoast.showToast(
+          msg: "Mot de passe est obligatoire",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.black,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
+
+      return;
+    }
+
+    //Show Dialog
+    _showProgress();
+
+    final String email = _emailController.text.trim().toString();
+    final String password  = _passwordController.text.trim().toString();
+
+    AppSetup.backendService.signIn(email: email, password: password)
+    .then((Session value){
+      print("Session  $value");
+      _hideProgress();
+
+    }).catchError((error){
+      _hideProgress();
+      print("LoginScreen._submitLogin() =>> Error => $error");
+      if(error is AuthException){
+
+          AppSetup.toastLong(error.message);
+
+      }else if(error is SocketException || error is Client){
+        AppSetup.toastLong("S'il vous plâit, veuillez vérifier votre connexion internet");
+      }else{
+
+      }
+
+
+    });
+
+
   }
 
 

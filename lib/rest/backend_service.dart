@@ -27,5 +27,11 @@ abstract class BackendService{
     required int conversationId
   });
 
+  //TODO Load Conversations by Customer ID https://api-socialapp.adjemincloud.com/api/v1/conversations/customers/1
+
+  //TODO Load Messages by Conversation ID https://api-socialapp.adjemincloud.com/api/v1/conversations/messages/2
+
+  //TODO Load Contacts https://api-socialapp.adjemincloud.com/api/v1/contacts/1
+
 
 }
