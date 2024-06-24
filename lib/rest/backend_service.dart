@@ -1,3 +1,5 @@
+import 'package:bridgebank_social_app/data/models/conversation.dart';
+import 'package:bridgebank_social_app/data/models/message.dart';
 import 'package:bridgebank_social_app/data/models/session.dart';
 
 abstract class BackendService{
@@ -9,5 +11,20 @@ abstract class BackendService{
     required String lastName,
     required String email,
     required String password});
+
+
+  Future<Conversation> openConversation({
+        required  List<int> speakers,
+        bool isGroup = false,
+        String groupName = "",
+        List<int>? admins
+      });
+  Future<Message>  sendMessage({
+    required String content,
+    required String contentType, //text, audio, image
+    required int senderId,
+    required int conversationId
+  });
+
 
 }
