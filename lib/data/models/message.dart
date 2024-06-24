@@ -1,6 +1,6 @@
-import 'package:bridgebank_social_app/data/models/sender.dart';
+// import 'package:bridgebank_social_app/data/models/sender.dart';
 import 'package:bridgebank_social_app/data/models/user.dart';
-import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'message.g.dart';

@@ -2,7 +2,6 @@ import 'package:bridgebank_social_app/data/models/message.dart';
 import 'package:bridgebank_social_app/data/models/user.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import 'package:json_annotation/json_annotation.dart';
 
 part 'conversation.g.dart';
 
