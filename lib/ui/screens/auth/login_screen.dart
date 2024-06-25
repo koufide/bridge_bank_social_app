@@ -1,3 +1,4 @@
+import 'package:bridgebank_social_app/app_setup.dart';
 import 'package:bridgebank_social_app/configuration/constants.dart';
 import 'package:bridgebank_social_app/data/models/session.dart';
 import 'package:bridgebank_social_app/main.dart';
@@ -80,14 +81,67 @@ class _LoginScreenState extends State<LoginScreen> {
       //     fontSize: 16.0
       // );
 
-
-
     } on Exception catch (e) {
       print('RES ==> Failed to login: $e');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Échec de la connexion: $e')),
       );
     }
+
+  }
+
+
+
+  void _submitLogin(){
+    print("User onTap===>Se connecter");
+
+    if(_emailController.text.isEmpty){
+
+      Fluttertoast.showToast(
+          msg: "Email incorrect",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.TOP,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
+
+      return;
+    }
+    if(_passwordController.text.isEmpty){
+
+      Fluttertoast.showToast(
+          msg: "Password incorrect",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.TOP,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
+
+      return;
+    }
+
+    //show Dialog
+    _showProgress();
+
+    final String email = _emailController.text.trim().toString();
+    final String password = _passwordController.text.trim().toString();
+
+    AppSetup.backendService.signIn(email: email, password: password)
+    .then( (Session value){
+      print("Session $value");
+      _hideProgress();
+
+    }).catchError((erreur){
+      print("LoginScreen._submitLogin() =>> Erreur => $erreur");
+      _hideProgress();
+
+    });
+
+
 
   }
 
@@ -166,16 +220,50 @@ class _LoginScreenState extends State<LoginScreen> {
                     CustomButton(
                         title: "Se connecter",
                         // onPressed: (){
-
                         // },
                         onTap: () {
-                          print("User onTap===>Se connecter");
+                          // print("User onTap===>Se connecter");
+                          //
+                          // if(_emailController.text.isEmpty){
+                          //
+                          //   Fluttertoast.showToast(
+                          //       msg: "Email incorrect",
+                          //       toastLength: Toast.LENGTH_LONG,
+                          //       gravity: ToastGravity.TOP,
+                          //       timeInSecForIosWeb: 1,
+                          //       backgroundColor: Colors.red,
+                          //       textColor: Colors.white,
+                          //       fontSize: 16.0
+                          //   );
+                          //
+                          //   return;
+                          // }
+                          // if(_passwordController.text.isEmpty){
+                          //
+                          //   Fluttertoast.showToast(
+                          //       msg: "Password incorrect",
+                          //       toastLength: Toast.LENGTH_LONG,
+                          //       gravity: ToastGravity.TOP,
+                          //       timeInSecForIosWeb: 1,
+                          //       backgroundColor: Colors.red,
+                          //       textColor: Colors.white,
+                          //       fontSize: 16.0
+                          //   );
+                          //
+                          //   return;
+                          // }
+
                           //  signIn();
-                          setState(() {
-                            print(
-                                "User onTap _handleLogin ===>Se connecter _handleLogin");
-                            _handleLogin();
-                          });
+                          // setState(() {
+                          //   print(
+                          //       "User onTap _handleLogin ===>Se connecter _handleLogin");
+                          //   _handleLogin();
+                          // });
+
+                          _submitLogin();
+
+
+
                         }),
                     SizedBox(
                       height: 2.h,

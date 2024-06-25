@@ -9,7 +9,7 @@ void main() async  {
   await AppSetup.init();
   final Widget firstScreen = AppSetup.start();
 
-  runApp(  MyApp(firstScreen));
+  runApp(  MyApp(homeScreen: firstScreen));
   // runApp( const MyApp());
 }
 
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
   final Widget homeScreen;
 
 
-  const MyApp({super.key, required this.homeScreen});
+   const MyApp({super.key, required this.homeScreen});
   // const MyApp({super.key});
 
   // This widget is the root of your application.
