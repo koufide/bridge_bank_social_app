@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:bridgebank_social_app/app_setup.dart';
 import 'package:bridgebank_social_app/configuration/constants.dart';
 import 'package:bridgebank_social_app/data/models/session.dart';
 import 'package:bridgebank_social_app/main.dart';
+import 'package:bridgebank_social_app/rest/exception/auth/auth_exception.dart';
 import 'package:bridgebank_social_app/ui/screens/auth/register_screen.dart';
 import 'package:bridgebank_social_app/ui/widgets/custom_button.dart';
 import 'package:bridgebank_social_app/ui/widgets/custom_text_field.dart';
@@ -11,6 +14,7 @@ import 'package:flutter_sizer/flutter_sizer.dart';
 import 'package:bridgebank_social_app/configuration/colors.dart';
 import 'package:bridgebank_social_app/rest/backend_rest_service.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -132,12 +136,26 @@ class _LoginScreenState extends State<LoginScreen> {
 
     AppSetup.backendService.signIn(email: email, password: password)
     .then( (Session value){
-      print("Session $value");
       _hideProgress();
+      print("Session $value");
 
     }).catchError((erreur){
-      print("LoginScreen._submitLogin() =>> Erreur => $erreur");
       _hideProgress();
+      print("LoginScreen._submitLogin() =>> Erreur => $erreur");
+
+      if(erreur is AuthException){
+        AppSetup.toastLong(erreur.message);
+
+      }else if(erreur is SocketException || erreur is Client){
+        AppSetup.toastLong("Veuillez verifier votre connexion INTERNET");
+      }else if(erreur is Exception){
+        AppSetup.toastLong("Exception $erreur");
+      }else if(erreur is ArgumentError){
+        AppSetup.toastLong("ArgumentError $erreur");
+      }else{
+        AppSetup.toastLong("Inconnu $erreur");
+      }
+
 
     });
 

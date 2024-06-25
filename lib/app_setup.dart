@@ -6,6 +6,8 @@ import 'package:bridgebank_social_app/rest/backend_service.dart';
 import 'package:bridgebank_social_app/ui/screens/auth/login_screen.dart';
 import 'package:bridgebank_social_app/ui/screens/main/main_screen.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppSetup{
@@ -37,6 +39,20 @@ static Widget start(){
   }else{
     return const MainScreen(title: "Bridge B Social");
   }
+}
+
+static toastLong(String text){
+  Fluttertoast.showToast(
+      msg: text,
+      toastLength: Toast.LENGTH_LONG,
+      gravity: ToastGravity.TOP,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.red,
+      textColor: Colors.white,
+      fontSize: 16.0
+  );
+
+
 }
 
 }
