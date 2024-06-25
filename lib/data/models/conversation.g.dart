@@ -24,7 +24,7 @@ Conversation _$ConversationFromJson(Map<String, dynamic> json) => Conversation(
       deletedAt: json['deleted_at'] == null
           ? null
           : DateTime.parse(json['deleted_at'] as String),
-      speaker_list: (json['speak'] as List<dynamic>?)
+      speakerList: (json['speak'] as List<dynamic>?)
           ?.map((e) => (e as num).toInt())
           .toList(),
       users: (json['users'] as List<dynamic>?)
@@ -47,7 +47,7 @@ Map<String, dynamic> _$ConversationToJson(Conversation instance) =>
       'updated_at': instance.updatedAt?.toIso8601String(),
       'created_at': instance.createdAt?.toIso8601String(),
       'deleted_at': instance.deletedAt?.toIso8601String(),
-      'speak': instance.speaker_list,
+      'speak': instance.speakerList,
       'users': instance.users,
       'messages': instance.messages,
     };
