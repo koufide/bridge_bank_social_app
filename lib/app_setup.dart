@@ -71,6 +71,32 @@ class AppSetup{
     );
   }
 
+  static logout({required BuildContext context, required Function() onStartLoading, required Function () onCompleteLoading}){
+
+    onStartLoading();
+
+    //SignOut from API
+    backendService.signOut()
+        .whenComplete((){
+
+          print("SignOut from BackendService");
+
+          //Clear our cache
+          localStorageService.clear()
+          .whenComplete((){
+
+            print("Cache cleared");
+
+            onCompleteLoading();
+            //Navigate to LoginScreen
+            final homeScreen = start();
+            final newRoute = MaterialPageRoute(builder: (context)=> homeScreen);
+            Navigator.pushAndRemoveUntil(context, newRoute, (_)=>false);
+
+          });
+    });
+  }
+
 
 
 

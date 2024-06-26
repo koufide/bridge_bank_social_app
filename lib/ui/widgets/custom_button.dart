@@ -7,18 +7,22 @@ class CustomButton extends StatelessWidget {
   final String title;
   final Color? color;
   final Color? titleColor;
+  final double? width;
+  final double? height;
   const CustomButton({super.key,
     required this.title,
     required this.onTap,
     this.color,
-    this.titleColor
+    this.titleColor,
+    this.width,
+    this.height
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width,
-      height: 5.h,
+      width: width??MediaQuery.of(context).size.width,
+      height: height??5.h,
       padding:  EdgeInsets.only(
           left: 8.w,
           right: 8.w),
