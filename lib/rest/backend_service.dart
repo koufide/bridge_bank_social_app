@@ -29,7 +29,6 @@ abstract class BackendService{
   });
 
   //Load Conversations by Customer ID https://api-socialapp.adjemincloud.com/api/v1/conversations/customers/1
-
   Future<List<Conversation>>  loadMyConversations({int? meId});
 
   //Load Messages by Conversation ID https://api-socialapp.adjemincloud.com/api/v1/conversations/messages/2

@@ -53,7 +53,11 @@ class Conversation{
   @override
   int get hashCode => id.hashCode;
 
-  //TODO isConnected()
+
+  @override
+  String toString() {
+    return 'Conversation{id: $id, speakers: $speakers, isGroup: $isGroup, groupName: $groupName, admins: $admins, speakerList: $speakerList, users: $users, messages: $messages, createdAt: $createdAt, updatedAt: $updatedAt}';
+  } //TODO isConnected()
   bool isConnected(){
     return true;
   }

@@ -1,6 +1,7 @@
 import 'package:bridgebank_social_app/data/models/conversation.dart';
 import 'package:bridgebank_social_app/data/models/message.dart';
 import 'package:bridgebank_social_app/data/models/session.dart';
+import 'package:bridgebank_social_app/data/models/user.dart';
 import 'package:bridgebank_social_app/rest/backend_rest_service.dart';
 import 'package:bridgebank_social_app/rest/exception/auth/auth_exception.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -75,6 +76,44 @@ void main(){
     print("Body Response => $res");
 
     expect(res is Message, true);
+
+  });
+
+  test("Check loadMyConversations successfully", ()async{
+
+    final session = await BackendRestService()
+        .signIn(email: "angebagui@adjemin.com",
+        password: "123456789");
+
+    final res = await BackendRestService()
+        .loadMyConversations(meId: session.user?.id);
+
+    print("Body Response => $res");
+
+    expect(res is List<Conversation>, true);
+
+  });
+
+  test("Check loadMessagesByConversationID successfully", ()async{
+
+    final res = await BackendRestService()
+        .loadMessagesByConversationID(
+        conversationId: 2);
+
+    print("Body Response => $res");
+
+    expect(res is List<Message>, true);
+
+  });
+
+  test("Check loadContacts successfully", ()async{
+
+    final res = await BackendRestService()
+        .loadContacts();
+
+    print("Body Response => $res");
+
+    expect(res is List<User>, true);
 
   });
 

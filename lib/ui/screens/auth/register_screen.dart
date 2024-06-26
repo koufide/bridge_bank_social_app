@@ -37,7 +37,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
 
 
-
     return Scaffold(
       body:_isLoading?
       const ProgressUi()
@@ -173,6 +172,36 @@ class _RegisterScreenState extends State<RegisterScreen> {
   void _submitRegister() {
 
     //Check Inputs
+
+    if(_firstNameController.text.isEmpty){
+      //Show Email est obligatoire
+      Fluttertoast.showToast(
+          msg: "Prénom est obligatoire",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.black,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
+
+      return;
+    }
+
+    if(_lastNameController.text.isEmpty){
+      //Show Email est obligatoire
+      Fluttertoast.showToast(
+          msg: "Nom de famille est obligatoire",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.black,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
+
+      return;
+    }
     if(_emailController.text.isEmpty){
       //Show Email est obligatoire
       Fluttertoast.showToast(
@@ -192,6 +221,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
       //Show Mot de passe est obligatoire
       Fluttertoast.showToast(
           msg: "Mot de passe est obligatoire",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.black,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
+
+      return;
+    }
+
+    if(!_isTermsAccepted){
+      //Show Email est obligatoire
+      Fluttertoast.showToast(
+          msg: "Vous devez absolument accepter les conditions d'utilisations.",
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 1,

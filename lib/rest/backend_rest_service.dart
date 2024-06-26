@@ -306,8 +306,8 @@ class BackendRestService extends BackendService{
       }
 
       if(json.containsKey("success") && json['success'] == true && json['data'] != null){
-        final List jsonData = json['data'];
-        return jsonData.map((e)=> Message.fromJson(e)).toList();
+        final List<dynamic> jsonData = json['data'];
+        return jsonData.map<Message>((e)=> Message.fromJson(e)).toList();
       }
 
       throw Exception(response.body);
@@ -340,11 +340,12 @@ class BackendRestService extends BackendService{
 
   @override
   Future<List<Conversation>> loadMyConversations({int? meId})async {
-    final Uri url = Uri.parse("$API_URL/conversations/customers/$meId");
 
     //Get Access Token
     final Session? session = AppSetup.me;
     //final Session session = await signIn(email: "angebagui@adjemin.com", password: "123456789");
+    final Uri url = Uri.parse("$API_URL/conversations/customers/${meId??session?.user?.id}");
+
     final String? token = session?.authorization?.token;
     print("Authorization: Bearer $token");
 
@@ -361,8 +362,8 @@ class BackendRestService extends BackendService{
       }
 
       if(json.containsKey("success") && json['success'] == true && json['data'] != null){
-        final List jsonData = json['data'];
-        return jsonData.map((e)=> Conversation.fromJson(e)).toList();
+        final List<dynamic> jsonData = json['data'];
+        return jsonData.map<Conversation>((e)=> Conversation.fromJson(e)).toList();
       }
 
       throw Exception(response.body);
