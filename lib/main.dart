@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bridgebank_social_app/app_setup.dart';
 import 'package:bridgebank_social_app/configuration/constants.dart';
+import 'package:bridgebank_social_app/configuration/theme.dart';
 import 'package:bridgebank_social_app/configuration/token_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
@@ -43,6 +44,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver{
 
   void _startTimer(){
     print("_startTimer");
+
     _timer = Timer.periodic(Duration(
         seconds: Constants.TIMER_DELAY
     ), (timer){
@@ -126,8 +128,10 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver{
           onPointerDown: (event){
             print("$event");
             if(TokenManager.isExpired()){
-              setState(() {
-              });
+              if(mounted){
+                setState(() {
+                });
+              }
             }else{
               TokenManager.refresh();
             }
@@ -135,26 +139,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver{
           },
           child: MaterialApp(
             title: 'Flutter Demo',
-            theme: ThemeData(
-              // This is the theme of your application.
-              //
-              // TRY THIS: Try running your application with "flutter run". You'll see
-              // the application has a purple toolbar. Then, without quitting the app,
-              // try changing the seedColor in the colorScheme below to Colors.green
-              // and then invoke "hot reload" (save your changes or press the "hot
-              // reload" button in a Flutter-supported IDE, or press "r" if you used
-              // the command line to start the app).
-              //
-              // Notice that the counter didn't reset back to zero; the application
-              // state is not lost during the reload. To reset the state, use hot
-              // restart instead.
-              //
-              // This works for code too, not just values: Most code changes can be
-              // tested with just a hot reload.
-                colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-                useMaterial3: true,
-                fontFamily: "Poppins"
-            ),
+            theme: AppTheme.light(),
             //home: MainScreen(title: "BB Social",)
             home: TokenManager.isExpired()?
                 AppSetup.start():

@@ -12,7 +12,7 @@ class TokenManager{
     if(token != null){
       return JwtDecoder.isExpired(token);
     }
-    return false;
+    return true;
   }
   static refresh(){
 

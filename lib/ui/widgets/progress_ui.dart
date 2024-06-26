@@ -20,3 +20,23 @@ class ProgressUi extends StatelessWidget {
     );
   }
 }
+
+class ProgressUtils{
+
+  static bool isLoading = false;
+
+  static void init(){
+    isLoading = false;
+  }
+  static void showProgress(Function () onSuccess){
+    isLoading = true;
+    onSuccess();
+  }
+
+  static void hideProgress(Function () onSuccess){
+    isLoading = false;
+    onSuccess();
+  }
+
+
+}

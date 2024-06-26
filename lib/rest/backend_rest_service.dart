@@ -106,7 +106,7 @@ class BackendRestService extends BackendService{
     List<int>? admins}) async{
     final Uri url = Uri.parse("$API_URL/open_conversation");
     //Get Access Token
-    final Session? session = AppSetup.me;
+    final Session? session = AppSetup.localStorageService.connectedUser();
     //final Session session = await signIn(email: "angebagui@adjemin.com", password: "123456789");
     final String? token = session?.authorization?.token;
     print("Authorization: Bearer $token");
@@ -172,7 +172,7 @@ class BackendRestService extends BackendService{
     final Uri url = Uri.parse("$API_URL/messages");
 
     //Get Access Token
-    final Session? session = AppSetup.me;
+    final Session? session = AppSetup.localStorageService.connectedUser();
     //final Session session = await signIn(email: "angebagui@adjemin.com", password: "123456789");
     final String? token = session?.authorization?.token;
     print("Authorization: Bearer $token");
@@ -233,10 +233,10 @@ class BackendRestService extends BackendService{
     final Uri url = Uri.parse("$API_URL/contacts/$meId");
 
     //Get Access Token
-    final Session? session = AppSetup.me;
+    final Session? session = AppSetup.localStorageService.connectedUser();
     //final Session session = await signIn(email: "angebagui@adjemin.com", password: "123456789");
     final String? token = session?.authorization?.token;
-    print("Authorization: Bearer $token");
+    print("loadContacts Authorization: Bearer $token");
 
     final Response response = await get(url, headers: {
           HttpHeaders.acceptHeader:"application/json",
@@ -288,10 +288,10 @@ class BackendRestService extends BackendService{
     final Uri url = Uri.parse("$API_URL/conversations/messages/$conversationId");
 
     //Get Access Token
-    final Session? session = AppSetup.me;
+    final Session? session = AppSetup.localStorageService.connectedUser();
     //final Session session = await signIn(email: "angebagui@adjemin.com", password: "123456789");
     final String? token = session?.authorization?.token;
-    print("Authorization: Bearer $token");
+    //print("Authorization: Bearer $token");
 
     final Response response = await get(url, headers: {
       HttpHeaders.acceptHeader:"application/json",
@@ -342,12 +342,12 @@ class BackendRestService extends BackendService{
   Future<List<Conversation>> loadMyConversations({int? meId})async {
 
     //Get Access Token
-    final Session? session = AppSetup.me;
+    final Session? session = AppSetup.localStorageService.connectedUser();
     //final Session session = await signIn(email: "angebagui@adjemin.com", password: "123456789");
     final Uri url = Uri.parse("$API_URL/conversations/customers/${meId??session?.user?.id}");
 
     final String? token = session?.authorization?.token;
-    print("Authorization: Bearer $token");
+    //print("Authorization: Bearer $token");
 
     final Response response = await get(url, headers: {
       HttpHeaders.acceptHeader:"application/json",
@@ -400,7 +400,7 @@ class BackendRestService extends BackendService{
     final Uri url = Uri.parse("$API_URL/refresh_token");
 
     // Get Access Token
-    final Session? _session = session ?? AppSetup.me;
+    final Session? _session = session ?? AppSetup.localStorageService.connectedUser();
     final String? token = _session?.authorization?.token;
 
     final Response response = await post(
@@ -452,7 +452,7 @@ class BackendRestService extends BackendService{
     final Uri url = Uri.parse("$API_URL/user_logout");
 
     // Get Access Token
-    final Session? _session = session ?? AppSetup.me;
+    final Session? _session = session ?? AppSetup.localStorageService.connectedUser();
     final String? token = _session?.authorization?.token;
 
     final Response response = await post(

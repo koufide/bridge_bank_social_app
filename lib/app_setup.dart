@@ -1,3 +1,4 @@
+import 'package:bridgebank_social_app/configuration/token_manager.dart';
 import 'package:bridgebank_social_app/data/models/session.dart';
 import 'package:bridgebank_social_app/data/storage/local_storage_service.dart';
 import 'package:bridgebank_social_app/data/storage/shared_prefs.dart';
@@ -43,12 +44,7 @@ class AppSetup{
     }else{
       //Check token expiration
       print("Check token expiration");
-      final String? token = me?.authorization?.token;
-      if(token == null){
-        return const LoginScreen();
-      }
-      final bool hasExpired = JwtDecoder.isExpired(token);
-      if(hasExpired){
+      if(TokenManager.isExpired()){
         print("Token is expired");
         localStorageService.clear()
         .whenComplete((){
@@ -107,7 +103,7 @@ class AppSetup{
 
             onCompleteLoading();
 
-            toastLongSuccess('Déconnexion réussie');
+            //toastLongSuccess('Déconnexion réussie');
 
             //Navigate to LoginScreen
             final homeScreen = start();

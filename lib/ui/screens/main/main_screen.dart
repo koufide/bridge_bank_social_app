@@ -1,7 +1,9 @@
+import 'dart:async';
 import 'dart:ui';
 
 import 'package:bridgebank_social_app/app_setup.dart';
 import 'package:bridgebank_social_app/configuration/colors.dart';
+import 'package:bridgebank_social_app/ui/screens/contacts/contacts_screen.dart';
 import 'package:bridgebank_social_app/ui/screens/main/pages/groups_page.dart';
 import 'package:bridgebank_social_app/ui/screens/main/pages/messages_page.dart';
 import 'package:bridgebank_social_app/ui/widgets/dialogs.dart';
@@ -41,6 +43,8 @@ class _MainScreenState extends State<MainScreen> {
   }
 
 
+
+
   @override
   Widget build(BuildContext context) {
 
@@ -50,12 +54,13 @@ class _MainScreenState extends State<MainScreen> {
         length: 2,
         child: Scaffold(
             appBar: AppBar(
-              backgroundColor: AppColors.primary,
-              centerTitle: true,
-              title: Text(widget.title, style: const TextStyle(
-                  color: AppColors.appBarTitleColor,
-                  fontWeight: FontWeight.bold
-              ),),
+
+              backgroundColor:Theme.of(context).appBarTheme.backgroundColor ,
+              title: Text(widget.title, style: TextStyle(
+                color: Colors.white
+              )),
+              titleTextStyle: Theme.of(context).appBarTheme.titleTextStyle,
+              iconTheme: Theme.of(context).appBarTheme.iconTheme,
               actions: [
 
                 IconButton(
@@ -93,6 +98,26 @@ class _MainScreenState extends State<MainScreen> {
                 ],
               ),
             ),
+            floatingActionButton: FloatingActionButton(
+              backgroundColor: Colors.transparent,
+              onPressed: (){
+
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (context)=> ContactsScreen(),
+
+                ));
+              },
+              child: Container(
+                width: 80,
+                height: 80,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: AppColors.secondary,
+
+                ),
+                child: Icon(Icons.add, color: Colors.white,),
+              ),
+            ),
             body: const TabBarView(
               children: [
                 MessagesPage(),
@@ -102,4 +127,6 @@ class _MainScreenState extends State<MainScreen> {
         )
     );
   }
+
+
 }
