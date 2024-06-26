@@ -26,5 +26,13 @@ abstract class BackendService {
     required int conversationId,
   });
 
+  Future<List<Conversation>> loadConversationByCustomerId({
+    int? customerId
+  });
+
+  Future<List<Message>> loadMessageByConversationId({
+    int? conversationId
+  });
+
   //TODO LOAD
 }

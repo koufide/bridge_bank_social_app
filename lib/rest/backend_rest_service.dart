@@ -214,5 +214,61 @@ class BackendRestService extends BackendService {
     } else {
       throw Exception(response.body);
     }
-  } //message
+  }
+
+  @override
+  Future<List<Conversation>> loadConversationByCustomerId({int? customerId}) async {
+    final Session? session = AppSetup.me;
+    final String? token = session?.authorization?.token;
+    final Uri url = Uri.parse("$API_URL/conversations/customers/$customerId??$session?.user?.id");
+
+    final Response response = await get(url,
+     headers: {
+        "Accept": "application/json",
+        "Authorization": "Bearer $token"
+        }
+    );
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic>? json = jsonDecode(response.body);
+
+      if (json == null) {
+        throw Exception(response.body);
+      }
+
+      if (json.containsKey("success") &&
+          json["success"] == true &&
+          json['data'] != null) {
+        final Map<String, dynamic> jsonData = json['data'];
+        return Message.fromJson(jsonData);
+      }
+      throw Exception(response.body);
+
+    } else if (response.statusCode >= 400 && response.statusCode < 500) {
+      if (response.headers['content-type'] == "application/json") {
+        final Map<String, dynamic> json = jsonDecode(response.body);
+
+        if (json.containsKey("message") && json['message'] != null) {
+          if (json['message'].isEmpty() || json['message'] == "") {
+            throw AuthException(json['message']);
+          } else {
+            throw ArgumentError(json['message']);
+          }
+        }
+      }
+      throw Exception(response.body);
+    } else {
+      throw Exception(response.body);
+    }
+
+
+  }
+
+  @override
+  Future<List<Message>> loadMessageByConversationId({int? conversationId}) {
+    // TODO: implement loadMessageByConversationId
+    throw UnimplementedError();
+  }
+
+
 }
