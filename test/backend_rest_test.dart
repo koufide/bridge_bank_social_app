@@ -117,4 +117,52 @@ void main(){
 
   });
 
+  test('Check successful refresh_token', () async {
+    final Session ses = await BackendRestService().signIn(email: "rouattara150@gmail.com", password: "1234");
+    final res = await BackendRestService().refreshToken(session: ses);
+
+    print("Backend Test ===> : $res");
+
+    expect(res is Session, true);
+  });
+
+  test('Check successful logout', () async {
+    final Session ses = await BackendRestService().signIn(email: "rouattara150@gmail.com", password: "1234");
+    final res = await BackendRestService().signOut(session: ses);
+
+    print("Backend Test ===>: $res");
+
+    expect(res, true);
+  });
+
+  test('Check unsuccessful logout', () async {
+    final Session ses = Session.fromJson({
+      "user": {
+        "id": 2,
+        "first_name": "Test",
+        "last_name": "Test",
+        "email": "angebagui@adjemin.com",
+        "password": "UF.uGDM2dw1E4M7QHKV4uiQEzKHVQZmJ7LC",
+        "photo": null,
+        "created_at": "2023-12-02T00:02:33.000000Z",
+        "updated_at": "2023-12-02T00:02:33.000000Z",
+        "deleted_at": null
+      },
+      "authorization": {
+        "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS1zb2NpYWxhcHAuYWRqZW1pbmNsb3VkLmNvbS9hcGkvdjEvdXNlcl9hdXRoIiwiaWF0IjoxNzE5NDAwOTg5LCJleHAiOjE3MTk0MDEwNDksIm5iZiI6MTcxOTQwMDk4OSwianRpIjoiNG14MlA0UFJEajhMVnNaVSIsInN1YiI6IjIiLCJwcnYiOiIxZDBhMDIwYWNmNWM0YjZjNDk3OTg5ZGYxYWJmMGZiZDRlOGM4ZDYzIn0.et936G5ZEnA2OgEWy9pTouW8X9F1zLGAtZ40jif4lCk",
+        "type": "bearer"
+      }
+    });
+
+    try {
+      final res = await BackendRestService().signOut(session: ses);
+      print("Backend Test ===> Load Contacts : $res");
+    }
+    catch (e) {
+      print(e);
+      expect(e is AuthException, true);
+    };
+
+  });
+
 }
