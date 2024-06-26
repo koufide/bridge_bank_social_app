@@ -194,7 +194,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
           AppSetup.toastLong(error.message);
 
-      }else if(error is SocketException || error is Client){
+      }else if(error is SocketException || error is ClientException){
         AppSetup.toastLong("S'il vous plâit, veuillez vérifier votre connexion internet");
       }else if(error is ArgumentError){
 

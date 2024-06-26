@@ -5,6 +5,7 @@ import 'package:bridgebank_social_app/app_setup.dart';
 import 'package:bridgebank_social_app/data/models/conversation.dart';
 import 'package:bridgebank_social_app/data/models/message.dart';
 import 'package:bridgebank_social_app/data/models/session.dart';
+import 'package:bridgebank_social_app/data/models/user.dart';
 import 'package:bridgebank_social_app/data/storage/local_storage_service.dart';
 import 'package:bridgebank_social_app/rest/backend_service.dart';
 import 'package:bridgebank_social_app/rest/exception/auth/auth_exception.dart';
@@ -197,6 +198,171 @@ class BackendRestService extends BackendService{
       if(json.containsKey("success") && json['success'] == true && json['data'] != null){
         final Map<String, dynamic> jsonData = json['data'];
         return Message.fromJson(jsonData);
+      }
+
+      throw Exception(response.body);
+
+    }else if(response.statusCode >=400 && response.statusCode <500){
+      if(response.headers['content-type'] == "application/json"){
+        final Map<String, dynamic> json = jsonDecode(response.body);
+
+        if(json.containsKey("message") && json['message'] != null){
+          if(json['message'].isEmpty){
+            throw ArgumentError("Bad request");
+          }else{
+            if(response.statusCode == 401){
+              throw AuthException(json['message']);
+            }else{
+              throw ArgumentError(json['message']);
+            }
+
+          }
+
+        }
+      }
+
+      throw Exception(response.body);
+
+    }else{
+      throw Exception(response.body);
+    }
+  }
+
+  @override
+  Future<List<User>> loadContacts({int? meId}) async{
+    final Uri url = Uri.parse("$API_URL/contacts/$meId");
+
+    //Get Access Token
+    final Session? session = AppSetup.me;
+    //final Session session = await signIn(email: "angebagui@adjemin.com", password: "123456789");
+    final String? token = session?.authorization?.token;
+    print("Authorization: Bearer $token");
+
+    final Response response = await get(url, headers: {
+          HttpHeaders.acceptHeader:"application/json",
+          HttpHeaders.authorizationHeader:"Bearer $token"
+        });
+
+    if(response.statusCode == 200){
+      final Map<String, dynamic>? json = jsonDecode(response.body);
+
+      if(json == null){
+        throw Exception(response.body);
+      }
+
+      if(json.containsKey("success") && json['success'] == true && json['data'] != null){
+        final List jsonData = json['data'];
+        return jsonData.map((e)=> User.fromJson(e)).toList();
+      }
+
+      throw Exception(response.body);
+
+    }else if(response.statusCode >=400 && response.statusCode <500){
+      if(response.headers['content-type'] == "application/json"){
+        final Map<String, dynamic> json = jsonDecode(response.body);
+
+        if(json.containsKey("message") && json['message'] != null){
+          if(json['message'].isEmpty){
+            throw ArgumentError("Bad request");
+          }else{
+            if(response.statusCode == 401){
+              throw AuthException(json['message']);
+            }else{
+              throw ArgumentError(json['message']);
+            }
+
+          }
+
+        }
+      }
+
+      throw Exception(response.body);
+
+    }else{
+      throw Exception(response.body);
+    }
+  }
+
+  @override
+  Future<List<Message>> loadMessagesByConversationID({required int conversationId})async {
+    final Uri url = Uri.parse("$API_URL/conversations/messages/$conversationId");
+
+    //Get Access Token
+    final Session? session = AppSetup.me;
+    //final Session session = await signIn(email: "angebagui@adjemin.com", password: "123456789");
+    final String? token = session?.authorization?.token;
+    print("Authorization: Bearer $token");
+
+    final Response response = await get(url, headers: {
+      HttpHeaders.acceptHeader:"application/json",
+      HttpHeaders.authorizationHeader:"Bearer $token"
+    });
+
+    if(response.statusCode == 200){
+      final Map<String, dynamic>? json = jsonDecode(response.body);
+
+      if(json == null){
+        throw Exception(response.body);
+      }
+
+      if(json.containsKey("success") && json['success'] == true && json['data'] != null){
+        final List jsonData = json['data'];
+        return jsonData.map((e)=> Message.fromJson(e)).toList();
+      }
+
+      throw Exception(response.body);
+
+    }else if(response.statusCode >=400 && response.statusCode <500){
+      if(response.headers['content-type'] == "application/json"){
+        final Map<String, dynamic> json = jsonDecode(response.body);
+
+        if(json.containsKey("message") && json['message'] != null){
+          if(json['message'].isEmpty){
+            throw ArgumentError("Bad request");
+          }else{
+            if(response.statusCode == 401){
+              throw AuthException(json['message']);
+            }else{
+              throw ArgumentError(json['message']);
+            }
+
+          }
+
+        }
+      }
+
+      throw Exception(response.body);
+
+    }else{
+      throw Exception(response.body);
+    }
+  }
+
+  @override
+  Future<List<Conversation>> loadMyConversations({int? meId})async {
+    final Uri url = Uri.parse("$API_URL/conversations/customers/$meId");
+
+    //Get Access Token
+    final Session? session = AppSetup.me;
+    //final Session session = await signIn(email: "angebagui@adjemin.com", password: "123456789");
+    final String? token = session?.authorization?.token;
+    print("Authorization: Bearer $token");
+
+    final Response response = await get(url, headers: {
+      HttpHeaders.acceptHeader:"application/json",
+      HttpHeaders.authorizationHeader:"Bearer $token"
+    });
+
+    if(response.statusCode == 200){
+      final Map<String, dynamic>? json = jsonDecode(response.body);
+
+      if(json == null){
+        throw Exception(response.body);
+      }
+
+      if(json.containsKey("success") && json['success'] == true && json['data'] != null){
+        final List jsonData = json['data'];
+        return jsonData.map((e)=> Conversation.fromJson(e)).toList();
       }
 
       throw Exception(response.body);

@@ -1,6 +1,7 @@
 import 'package:bridgebank_social_app/data/models/conversation.dart';
 import 'package:bridgebank_social_app/data/models/message.dart';
 import 'package:bridgebank_social_app/data/models/session.dart';
+import 'package:bridgebank_social_app/data/models/user.dart';
 
 abstract class BackendService{
 
@@ -27,11 +28,16 @@ abstract class BackendService{
     required int conversationId
   });
 
-  //TODO Load Conversations by Customer ID https://api-socialapp.adjemincloud.com/api/v1/conversations/customers/1
+  //Load Conversations by Customer ID https://api-socialapp.adjemincloud.com/api/v1/conversations/customers/1
 
-  //TODO Load Messages by Conversation ID https://api-socialapp.adjemincloud.com/api/v1/conversations/messages/2
+  Future<List<Conversation>>  loadMyConversations({int? meId});
 
-  //TODO Load Contacts https://api-socialapp.adjemincloud.com/api/v1/contacts/1
+  //Load Messages by Conversation ID https://api-socialapp.adjemincloud.com/api/v1/conversations/messages/2
+  Future<List<Message>>  loadMessagesByConversationID({
+    required int conversationId
+  });
 
+  //Load Contacts https://api-socialapp.adjemincloud.com/api/v1/contacts/1
+  Future<List<User>>  loadContacts({int? meId});
 
 }
