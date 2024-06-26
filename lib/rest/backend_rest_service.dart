@@ -394,4 +394,16 @@ class BackendRestService extends BackendService{
     }
   }
 
+  @override
+  Future<Session> refreshToken({Session? session}) {
+    // TODO: implement refreshToken
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> signOut({Session? session}) {
+    // TODO: implement signOut
+    throw UnimplementedError();
+  }
+
 }
