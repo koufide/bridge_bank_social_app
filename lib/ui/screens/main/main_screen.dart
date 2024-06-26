@@ -4,11 +4,9 @@ import 'package:bridgebank_social_app/app_setup.dart';
 import 'package:bridgebank_social_app/configuration/colors.dart';
 import 'package:bridgebank_social_app/ui/screens/main/pages/groups_page.dart';
 import 'package:bridgebank_social_app/ui/screens/main/pages/messages_page.dart';
-import 'package:bridgebank_social_app/ui/widgets/custom_button.dart';
 import 'package:bridgebank_social_app/ui/widgets/dialogs.dart';
 import 'package:bridgebank_social_app/ui/widgets/progress_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_sizer/flutter_sizer.dart';
 
 class MainScreen extends StatefulWidget {
   final String title;
@@ -41,6 +39,7 @@ class _MainScreenState extends State<MainScreen> {
       });
     }
   }
+
 
   @override
   Widget build(BuildContext context) {

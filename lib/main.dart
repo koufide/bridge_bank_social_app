@@ -1,7 +1,8 @@
+import 'dart:async';
+
 import 'package:bridgebank_social_app/app_setup.dart';
-import 'package:bridgebank_social_app/ui/screens/auth/login_screen.dart';
-import 'package:bridgebank_social_app/ui/screens/auth/register_screen.dart';
-import 'package:bridgebank_social_app/ui/screens/main/main_screen.dart';
+import 'package:bridgebank_social_app/configuration/constants.dart';
+import 'package:bridgebank_social_app/configuration/token_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
 
@@ -13,17 +14,126 @@ void main() async{
   runApp(MyApp(homeScreen: firstScreen,));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget  {
 
   final Widget homeScreen;
   const MyApp({super.key, required this.homeScreen});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver{
+
   // This widget is the root of your application.
+  late Widget _homeScreen;
+
+  Timer? _timer;
+
+  @override
+  void initState() {
+    //Init properties
+    _homeScreen = widget.homeScreen;
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+
+    _startTimer();
+
+  }
+
+  void _startTimer(){
+    print("_startTimer");
+    _timer = Timer.periodic(Duration(
+        seconds: Constants.TIMER_DELAY
+    ), (timer){
+      print("Timer.periodic => ${DateTime.now()}");
+      if(TokenManager.isExpired()){
+        AppSetup.localStorageService.clear()
+            .whenComplete((){
+          setState(() {
+
+          });
+        });
+
+      }else{
+        //Automatic refresh
+        //TokenManager.refresh();
+      }
+
+    });
+
+    if(mounted){
+      setState(() {
+
+      });
+    }
+  }
+
+
+  _stopTimer(){
+    print("_stopTimeer");
+    if(_timer != null){
+      _timer!.cancel();
+      _timer = null;
+    }
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    //Implement didChangeAppLifecycleState
+
+    if(state == AppLifecycleState.paused){
+        print("AppLifecycleState.paused");
+        _stopTimer();
+
+    }
+
+    if(state == AppLifecycleState.resumed){
+
+      _startTimer();
+
+      print("AppLifecycleState.resumed");
+      //Check token expiration
+      if(TokenManager.isExpired()){
+        AppSetup.localStorageService.clear()
+            .whenComplete((){
+          if(mounted){
+            setState(() {
+
+            });
+          }
+        });
+
+      }
+
+    }
+    super.didChangeAppLifecycleState(state);
+  }
+
+  @override
+  void dispose() {
+    //Implement dispose
+    _stopTimer();
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+
+  }
   @override
   Widget build(BuildContext context) {
     return FlutterSizer(
       builder: (contxt, orientation, screenType){
-        return MaterialApp(
+        return Listener(
+          onPointerDown: (event){
+            print("$event");
+            if(TokenManager.isExpired()){
+              setState(() {
+              });
+            }else{
+              TokenManager.refresh();
+            }
+
+          },
+          child: MaterialApp(
             title: 'Flutter Demo',
             theme: ThemeData(
               // This is the theme of your application.
@@ -41,13 +151,16 @@ class MyApp extends StatelessWidget {
               //
               // This works for code too, not just values: Most code changes can be
               // tested with just a hot reload.
-              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-              useMaterial3: true,
-              fontFamily: "Poppins"
+                colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+                useMaterial3: true,
+                fontFamily: "Poppins"
             ),
             //home: MainScreen(title: "BB Social",)
-          home: homeScreen,
-          //home: const RegisterScreen(),
+            home: TokenManager.isExpired()?
+                AppSetup.start():
+            _homeScreen,
+            //home: const RegisterScreen(),
+          ),
         );
       },
     );

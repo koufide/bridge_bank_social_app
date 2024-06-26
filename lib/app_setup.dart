@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 
 class AppSetup{
 
@@ -40,8 +41,25 @@ class AppSetup{
     if(me == null){
       return const LoginScreen();
     }else{
-      //TODO Check token expiration
-      return const MainScreen(title: "Bridge Bank Social");
+      //Check token expiration
+      print("Check token expiration");
+      final String? token = me?.authorization?.token;
+      if(token == null){
+        return const LoginScreen();
+      }
+      final bool hasExpired = JwtDecoder.isExpired(token);
+      if(hasExpired){
+        print("Token is expired");
+        localStorageService.clear()
+        .whenComplete((){
+          print("Cache cleared");
+        });
+        return const LoginScreen();
+      }else{
+        print("Token is not expired");
+        return const MainScreen(title: "Bridge Bank Social");
+      }
+
     }
 
 
@@ -88,6 +106,9 @@ class AppSetup{
             print("Cache cleared");
 
             onCompleteLoading();
+
+            toastLongSuccess('Déconnexion réussie');
+
             //Navigate to LoginScreen
             final homeScreen = start();
             final newRoute = MaterialPageRoute(builder: (context)=> homeScreen);
