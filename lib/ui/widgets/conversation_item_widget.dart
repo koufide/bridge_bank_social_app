@@ -8,12 +8,14 @@ import 'package:intl/intl.dart' as intl;
 class ConversationItemWidget extends StatelessWidget {
 
   final Conversation conversation;
-  const ConversationItemWidget({super.key, required this.conversation});
+  final Function () onTap;
+  const ConversationItemWidget({super.key, required this.conversation, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
 
     return ListTile(
+      onTap: onTap,
       leading: Stack(
         children: [
           Container(

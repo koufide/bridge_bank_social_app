@@ -59,7 +59,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver{
 
       }else{
         //Automatic refresh
-        //TokenManager.refresh();
+        TokenManager.refresh();
       }
 
     });

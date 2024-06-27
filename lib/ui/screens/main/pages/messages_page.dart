@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:bridgebank_social_app/app_setup.dart';
 import 'package:bridgebank_social_app/data/models/conversation.dart';
 import 'package:bridgebank_social_app/rest/exception/auth/auth_exception.dart';
+import 'package:bridgebank_social_app/ui/screens/main/conversation/conversation_screen.dart';
 import 'package:bridgebank_social_app/ui/widgets/conversation_item_widget.dart';
 import 'package:bridgebank_social_app/ui/widgets/progress_ui.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +38,13 @@ class _MessagesPageState extends State<MessagesPage> {
     return ProgressUtils.isLoading? ProgressUi():ListView(
       children: _conversations.map<Widget>((conversation)=>
           ConversationItemWidget(
-          conversation: conversation)).toList()
+          conversation: conversation,
+          onTap: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context)=> ConversationScreen(
+                conversation: conversation)));
+          },
+
+          )).toList()
     );
   }
 

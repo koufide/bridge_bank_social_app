@@ -3,7 +3,7 @@ import 'dart:ui';
 
 import 'package:bridgebank_social_app/app_setup.dart';
 import 'package:bridgebank_social_app/configuration/colors.dart';
-import 'package:bridgebank_social_app/ui/screens/contacts/contacts_screen.dart';
+import 'package:bridgebank_social_app/ui/screens/main/contacts/contacts_screen.dart';
 import 'package:bridgebank_social_app/ui/screens/main/pages/groups_page.dart';
 import 'package:bridgebank_social_app/ui/screens/main/pages/messages_page.dart';
 import 'package:bridgebank_social_app/ui/widgets/dialogs.dart';
@@ -48,19 +48,14 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
 
-    return _isLoading?const Scaffold(
+    return _isLoading?
+    const Scaffold(
       body: ProgressUi(),
     ):DefaultTabController(
         length: 2,
         child: Scaffold(
             appBar: AppBar(
-
-              backgroundColor:Theme.of(context).appBarTheme.backgroundColor ,
-              title: Text(widget.title, style: TextStyle(
-                color: Colors.white
-              )),
-              titleTextStyle: Theme.of(context).appBarTheme.titleTextStyle,
-              iconTheme: Theme.of(context).appBarTheme.iconTheme,
+              title: Text(widget.title),
               actions: [
 
                 IconButton(

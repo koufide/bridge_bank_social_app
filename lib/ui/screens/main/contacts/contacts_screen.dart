@@ -2,8 +2,10 @@ import 'dart:io';
 
 import 'package:bridgebank_social_app/app_setup.dart';
 import 'package:bridgebank_social_app/configuration/colors.dart';
+import 'package:bridgebank_social_app/data/models/conversation.dart';
 import 'package:bridgebank_social_app/data/models/user.dart';
 import 'package:bridgebank_social_app/rest/exception/auth/auth_exception.dart';
+import 'package:bridgebank_social_app/ui/screens/main/conversation/conversation_screen.dart';
 import 'package:bridgebank_social_app/ui/widgets/progress_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
@@ -106,6 +108,23 @@ class _ContactsScreenState extends State<ContactsScreen> {
 
   Widget _buildContactItemUi(User contact) {
     return ListTile(
+      onTap: (){
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ConversationScreen(
+            conversation: Conversation(
+                admins: [],
+                speakers: [
+                  AppSetup.localStorageService.connectedUser()!.user!.id!,
+                  contact.id!
+                ],
+              messages: [],
+              speakerList: [],
+              users: [
+                AppSetup.localStorageService.connectedUser()!.user!,
+                contact
+              ]
+            )
+        )));
+      },
       leading: Container(
         width: 80.0,
         height: 80.0,
@@ -116,6 +135,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
         child: Icon(Icons.person, color: Colors.white,),
       ),
       title: Text("${contact.firstName} ${contact.lastName}"),
+      subtitle: Text("${contact.email}"),
     );
   }
 }

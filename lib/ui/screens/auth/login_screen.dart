@@ -63,9 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(height: 4.h,),
             Center(
               child: Text("Connexion", style: Theme.of(context).textTheme
-                  .headlineLarge?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),),
+                  .headlineLarge,),
             ),
             Center(
               child: Text("Connectez vous maintenant !", style: Theme.of(context).textTheme
