@@ -2,6 +2,7 @@ import 'package:bridgebank_social_app/app_setup.dart';
 import 'package:bridgebank_social_app/configuration/constants.dart';
 import 'package:bridgebank_social_app/data/models/conversation.dart';
 import 'package:bridgebank_social_app/data/models/message.dart';
+import 'package:bridgebank_social_app/data/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
 import 'package:intl/intl.dart';
@@ -20,22 +21,25 @@ class ConversationScreen extends StatefulWidget {
 
 class _ConversationScreenState extends State<ConversationScreen> {
 
+  final TextEditingController _messageController = TextEditingController();
+
   late Conversation _conversation;
+
+  List<Message> _messages = [];
 
   @override
   void initState() {
     //Implement initState
     _conversation = widget.conversation;
+    _messages = _conversation.messages;
     _openConversation();
     super.initState();
-
 
   }
 
   @override
   Widget build(BuildContext context) {
-    return _conversation == null?
-    SizedBox():Scaffold(
+    return Scaffold(
       appBar: AppBar(
         title: Row(
           children: [
@@ -90,15 +94,20 @@ class _ConversationScreenState extends State<ConversationScreen> {
             color: Theme.of(context).colorScheme.primary,
             height: 20,
           ),
-          _buildMessagesUi()
+         Expanded(
+           child: SingleChildScrollView(
+             reverse: true,
+             child:  _buildMessagesUi(),
+           ),
+         ),
+          _buildMessageBox(),
         ],
       ),
-      bottomSheet: _buildMessageBox(),
     );
   }
   Widget _buildMessagesUi(){
     return Column(
-      children: _conversation.messages.map<Widget>((message)=>
+      children: _messages.map<Widget>((message)=>
       message.senderId == AppSetup.localStorageService.connectedUser()!.user!.id?
       _buildSenderUi(message):_buildReceiverUi(message)
       ).toList()
@@ -221,6 +230,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
             color: Colors.grey,
           ),
           TextField(
+            controller: _messageController,
             decoration: InputDecoration(
               prefixIcon: IconButton(
                 onPressed: (){
@@ -232,7 +242,9 @@ class _ConversationScreenState extends State<ConversationScreen> {
               hintText: "Write a message",
               suffixIcon: IconButton(
                 onPressed: (){
-
+                  _submitMessage(
+                      AppSetup.localStorageService.connectedUser()!.user!,
+                      _conversation);
                 },
                 icon: Icon(Icons.send),
               )
@@ -251,6 +263,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
 
       print("_openConversation() then =>> $conversation");
       _conversation = conversation;
+      _messages = conversation.messages;
       if(mounted){
         setState(() {
 
@@ -262,5 +275,61 @@ class _ConversationScreenState extends State<ConversationScreen> {
       print("ConversationScreen._openConversation() =>>> Error $error");
 
     });
+  }
+
+  void _submitMessage(User user, Conversation conversation) {
+
+    final String message = _messageController.text;
+    if(message.isEmpty){
+      return;
+    }
+
+    if(conversation.id == null){
+      return;
+    }
+
+    AppSetup.backendService.sendMessage(
+        content: message,
+        contentType: MessageContentType.text.name,
+        senderId: user.id!,
+        conversationId: conversation.id!)
+    .then((Message message){
+      _messageController.clear();
+
+      _messages.add(message);
+
+      //_messages.sort((a,b)=>a.createdAt!.compareTo(b.createdAt!));
+
+
+      setState(() {
+
+      });
+
+      _loadMessagesByConversation(_conversation.id!);
+
+
+    }).catchError((error){
+      print("ConversationScreen._submitMessage() ==>>> Error $error");
+    });
+
+
+  }
+
+  void _loadMessagesByConversation(int conversationId) {
+
+    print("_loadMessagesByConversation()");
+
+    AppSetup.backendService.loadMessagesByConversationID(conversationId: conversationId)
+        .then((List<Message> messages){
+          _messages = messages;
+          if(mounted){
+            setState(() {
+
+            });
+          }
+    }).catchError((error){
+      print("ConversationScreen._loadMessagesByConversation() ==>>> Error $error");
+    });
+
   }
 }
