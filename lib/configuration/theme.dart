@@ -20,11 +20,11 @@ class AppTheme{
           fontFamily: Constants.defaultFontFamily,
           fontSize: 22
         ),
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.white
         )
       ),
-      colorScheme: ColorScheme.light(
+      colorScheme: const ColorScheme.light(
         secondary: AppColors.secondary,
         primary: AppColors.primary
       ),
@@ -46,7 +46,7 @@ class AppTheme{
         fontFamily: "Poppins",
         brightness: Brightness.dark,
         scaffoldBackgroundColor: AppColors.secondary,
-        appBarTheme: AppBarTheme(
+        appBarTheme: const AppBarTheme(
             centerTitle: true,
             backgroundColor: AppColors.primary,
             titleTextStyle: TextStyle(
@@ -58,11 +58,11 @@ class AppTheme{
                 color: Colors.white
             )
         ),
-        colorScheme: ColorScheme.dark(
+        colorScheme: const ColorScheme.dark(
             secondary: AppColors.secondary,
             primary: AppColors.primary
         ),
-        textTheme: TextTheme(
+        textTheme: const TextTheme(
             headlineLarge: TextStyle(
                 fontSize: 40,
                 fontWeight: FontWeight.bold

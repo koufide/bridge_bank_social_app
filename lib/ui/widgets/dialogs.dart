@@ -20,7 +20,7 @@ class Dialogs{
         context: context, builder: (ctxt){
       return Container(
         color: Colors.transparent,
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: Scaffold(
           backgroundColor: Colors.transparent,
           body: Center(
@@ -29,7 +29,7 @@ class Dialogs{
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(30)
               ),
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [

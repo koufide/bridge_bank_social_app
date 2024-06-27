@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:bridgebank_social_app/app_setup.dart';
-import 'package:bridgebank_social_app/configuration/colors.dart';
 import 'package:bridgebank_social_app/data/models/conversation.dart';
 import 'package:bridgebank_social_app/data/models/user.dart';
 import 'package:bridgebank_social_app/rest/exception/auth/auth_exception.dart';
@@ -37,9 +36,9 @@ class _ContactsScreenState extends State<ContactsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Contacts"),
+        title: const Text("Contacts"),
       ),
-      body: ProgressUtils.isLoading? ProgressUi():
+      body: ProgressUtils.isLoading? const ProgressUi():
       ListView(
           children: _contacts.map<Widget>((contact)=>
               _buildContactItemUi(contact)).toList()
@@ -132,7 +131,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
             color: Colors.black,
             shape: BoxShape.circle
         ),
-        child: Icon(Icons.person, color: Colors.white,),
+        child: const Icon(Icons.person, color: Colors.white,),
       ),
       title: Text("${contact.firstName} ${contact.lastName}"),
       subtitle: Text("${contact.email}"),

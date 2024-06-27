@@ -6,15 +6,14 @@ import 'package:bridgebank_social_app/data/models/conversation.dart';
 import 'package:bridgebank_social_app/data/models/message.dart';
 import 'package:bridgebank_social_app/data/models/session.dart';
 import 'package:bridgebank_social_app/data/models/user.dart';
-import 'package:bridgebank_social_app/data/storage/local_storage_service.dart';
 import 'package:bridgebank_social_app/rest/backend_service.dart';
 import 'package:bridgebank_social_app/rest/exception/auth/auth_exception.dart';
 import 'package:http/http.dart';
 
 class BackendRestService extends BackendService{
 
-  static final String BASE_URL = "https://api-socialapp.adjemincloud.com";
-  static final String API_URL = "$BASE_URL/api/v1";
+  static const String BASE_URL = "https://api-socialapp.adjemincloud.com";
+  static const String API_URL = "$BASE_URL/api/v1";
 
   @override
   Future<Session> signIn({
@@ -400,8 +399,8 @@ class BackendRestService extends BackendService{
     final Uri url = Uri.parse("$API_URL/refresh_token");
 
     // Get Access Token
-    final Session? _session = session ?? AppSetup.localStorageService.connectedUser();
-    final String? token = _session?.authorization?.token;
+    final Session? session0 = session ?? AppSetup.localStorageService.connectedUser();
+    final String? token = session0?.authorization?.token;
 
     final Response response = await post(
       url,
@@ -452,8 +451,8 @@ class BackendRestService extends BackendService{
     final Uri url = Uri.parse("$API_URL/user_logout");
 
     // Get Access Token
-    final Session? _session = session ?? AppSetup.localStorageService.connectedUser();
-    final String? token = _session?.authorization?.token;
+    final Session? session0 = session ?? AppSetup.localStorageService.connectedUser();
+    final String? token = session0?.authorization?.token;
 
     final Response response = await post(
       url,

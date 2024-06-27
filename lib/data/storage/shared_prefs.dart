@@ -6,9 +6,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefs extends LocalStorageService{
 
-  static final String PREF_CONNECTED_USER_KEY = "bridgebank_social_app.PREF_CONNECTED_USER_KEY";
+  static const String PREF_CONNECTED_USER_KEY = "bridgebank_social_app.PREF_CONNECTED_USER_KEY";
 
-  SharedPreferences _prefs;
+  final SharedPreferences _prefs;
 
   SharedPrefs(this._prefs);
 

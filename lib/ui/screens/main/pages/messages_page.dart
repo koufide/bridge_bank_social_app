@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:io';
 
 import 'package:bridgebank_social_app/app_setup.dart';
@@ -35,7 +34,7 @@ class _MessagesPageState extends State<MessagesPage> {
   Widget build(BuildContext context) {
 
 
-    return ProgressUtils.isLoading? ProgressUi():ListView(
+    return ProgressUtils.isLoading? const ProgressUi():ListView(
       children: _conversations.map<Widget>((conversation)=>
           ConversationItemWidget(
           conversation: conversation,

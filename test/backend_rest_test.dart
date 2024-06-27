@@ -161,7 +161,7 @@ void main(){
     catch (e) {
       print(e);
       expect(e is AuthException, true);
-    };
+    }
 
   });
 

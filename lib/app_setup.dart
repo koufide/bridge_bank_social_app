@@ -6,11 +6,9 @@ import 'package:bridgebank_social_app/rest/backend_rest_service.dart';
 import 'package:bridgebank_social_app/rest/backend_service.dart';
 import 'package:bridgebank_social_app/ui/screens/auth/login_screen.dart';
 import 'package:bridgebank_social_app/ui/screens/main/main_screen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:jwt_decoder/jwt_decoder.dart';
 
 class AppSetup{
 

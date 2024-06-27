@@ -45,7 +45,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver{
   void _startTimer(){
     print("_startTimer");
 
-    _timer = Timer.periodic(Duration(
+    _timer = Timer.periodic(const Duration(
         seconds: Constants.TIMER_DELAY
     ), (timer){
       print("Timer.periodic => ${DateTime.now()}");
