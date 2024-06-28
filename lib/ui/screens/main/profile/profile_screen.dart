@@ -1,9 +1,11 @@
 import 'dart:io';
 
+import 'package:bridgebank_social_app/app_setup.dart';
 import 'package:bridgebank_social_app/configuration/colors.dart';
+import 'package:bridgebank_social_app/ui/widgets/progress_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_sizer/flutter_sizer.dart';
 import 'package:image_picker/image_picker.dart';
-
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -13,7 +15,9 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  String? photoUrl = null;
+  String? photoUrl;
+  bool _isUploadingPhoto = false;
+
   // String? photoUrl = "https://www.bridgebankgroup.com/images/popup/bridge-study.jpg";
   // https://cdn1.iconfinder.com/data/icons/project-management-8/500/worker-512.png
 
@@ -21,12 +25,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Profile"),
+        title: const Text("Profile"),
       ),
       body: Container(
-        padding: EdgeInsets.only(top: 10),
+        padding: const EdgeInsets.only(top: 10),
         child: Column(
           children: [
+            _isUploadingPhoto?Center(
+              child: _builUploadingUi(),
+            ):
             Center(
               child: photoUrl == null
                   ? _buildAddPhotoUi()
@@ -48,7 +55,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
       child: IconButton(
         onPressed: () {
-          print("==> add photo");
+          // print("==> add photo");
           _addPicture();
         },
         icon: const Icon(
@@ -61,7 +68,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   _buildUploadedPhotoUi() {
-    return Container(
+    return SizedBox(
       width: 160,
       height: 160,
       child: Stack(
@@ -73,12 +80,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
               shape: BoxShape.circle,
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: FileImage(
-                  File(photoUrl!),
+                image:
+                    // FileImage(
+                    //   File(photoUrl!),
+                    // ),
+                    NetworkImage(
+                  photoUrl!,
                 ),
-                // NetworkImage(
-                //   photoUrl!,
-                // ),
               ),
             ),
           ),
@@ -101,7 +109,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   void _addPicture() {
-    print("==> add picture");
+    print("==> _addPicture ==>>add picture");
     _takePicture();
     // _pickPicture();
   }
@@ -109,17 +117,62 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void _takePicture() {
     final ImagePicker imagePicker = ImagePicker();
     imagePicker.pickImage(source: ImageSource.camera).then((XFile? image) {
+      print("==> image ==> $image");
       if (image != null) {
-          print("==> image ==> $image");
-          photoUrl = image.path;
-
-          setState(() {});
-
+        // photoUrl = image.path;
+        // setState(() {});
+        _uploadImage(image);
       }
-    }).catchError((onError){
+    }).catchError((onError) {
       print("==> onError ==> $onError");
     });
   }
 
+  void _uploadImage(XFile file) {
+    if(mounted){
+      setState(() {
+        _isUploadingPhoto = true;
+      });
+    }
+    print("Upload image");
+    AppSetup.uploadImageService.uploadImage(File(file.path)).then((String url) {
+      print("Response =>> $url");
+      setState(() {
+        photoUrl = url;
+        _isUploadingPhoto = false;
+      });
+    }).catchError((error) {
+      print("uploadImage() error => $error");
+      _isUploadingPhoto = false;
+    });
+  }
 
+  void _pickPicture() {
+    final ImagePicker imagePicker = ImagePicker();
+    imagePicker.pickImage(source: ImageSource.gallery).then((XFile? image) {
+      print("image ==>> ${image?.path}");
+      if (image != null) {
+        photoUrl = image.path;
+        setState(() {});
+      }
+    }).catchError((error) {
+      print("_pickPicture() ==>>> Error $error");
+    });
+  }
+
+  Widget _builUploadingUi() {
+    return Container(
+      width: 140.w,
+      height: 140.h,
+      // child: ProgressUi(),
+      child: CircularProgressIndicator(),
+      padding: EdgeInsets.all(10.dp),
+      decoration: BoxDecoration(
+        border: Border.all(
+
+        ),
+        shape: BoxShape.circle,
+      ),
+    );
+  } // _pickPicture
 }

@@ -1,4 +1,3 @@
-
 import 'package:bridgebank_social_app/app_setup.dart';
 import 'package:bridgebank_social_app/configuration/colors.dart';
 import 'package:bridgebank_social_app/ui/screens/main/contacts/contacts_screen.dart';
@@ -18,122 +17,130 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-
-
   bool _isLoading = false;
 
-
-  void _showProgress(){
+  void _showProgress() {
     _isLoading = true;
-    if(mounted){
-      setState(() {
-
-      });
+    if (mounted) {
+      setState(() {});
     }
   }
 
-  void _hideProgress(){
+  void _hideProgress() {
     _isLoading = false;
-    if(mounted){
-      setState(() {
-
-      });
+    if (mounted) {
+      setState(() {});
     }
   }
 
-
-
+  final int _currentPosition = 0;
 
   @override
   Widget build(BuildContext context) {
-
-    return _isLoading?
-    const Scaffold(
-      body: ProgressUi(),
-    ):DefaultTabController(
-        length: 2,
-        child: Scaffold(
-            appBar: AppBar(
-              title: Text(widget.title),
-              actions: [
-
-                IconButton(onPressed: (){
-
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context)=> const ProfileScreen(),
-                      ),
-
-                  );
-                },
-                icon: const Icon(Icons.person, color: Colors.white,
-                ),
-                ),
-
-
-                IconButton(
-                    onPressed: (){
-
-                      //Show Disclaimer and Take confirmation
-
-                     Dialogs.showConfirmDialog(
-                         context: context,
-                         message: "Êtes-vous sûr de vouloir vous déconnecter?",
-                         onCancel: (){
-                           print("onCancel()");
-
-                         },
-                         onConfirm: (){
-                           print("onConfirm()");
-                           AppSetup.logout(context:context, onStartLoading:_showProgress, onCompleteLoading:_hideProgress);
-
-                         });
-
-                      },
-                    icon: const Icon(Icons.logout, color: Colors.white,)
-                )
-
-              ],
-              bottom: const TabBar(
-                labelColor: Colors.white,
-                tabs: [
-                  Tab(
-                    text: "Message",
+    return _isLoading
+        ? const Scaffold(body: ProgressUi())
+        : DefaultTabController(
+            length: 2,
+            child: Scaffold(
+              appBar: AppBar(
+                title: Text(widget.title),
+                actions: [
+                  IconButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ProfileScreen(),
+                        ),
+                      );
+                    },
+                    icon: const Icon(
+                      Icons.person,
+                      color: Colors.white,
+                    ),
                   ),
-                  Tab(
-                    text: "Group",
-                  )
+                  IconButton(
+                      onPressed: () {
+                        //Show Disclaimer and Take confirmation
+
+                        Dialogs.showConfirmDialog(
+                            context: context,
+                            message:
+                                "Êtes-vous sûr de vouloir vous déconnecter?",
+                            onCancel: () {
+                              print("onCancel()");
+                            },
+                            onConfirm: () {
+                              print("onConfirm()");
+                              AppSetup.logout(
+                                  context: context,
+                                  onStartLoading: _showProgress,
+                                  onCompleteLoading: _hideProgress);
+                            });
+                      },
+                      icon: const Icon(
+                        Icons.logout,
+                        color: Colors.white,
+                      ))
+                ],
+                bottom: const TabBar(
+                  labelColor: Colors.white,
+                  tabs: [
+                    Tab(
+                      text: "Message",
+                    ),
+                    Tab(
+                      text: "Group",
+                    )
+                  ],
+                ),
+              ),
+              floatingActionButton: FloatingActionButton(
+                backgroundColor: Colors.transparent,
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ContactsScreen(),
+                      ));
+                },
+                child: Container(
+                  width: 80,
+                  height: 80,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: AppColors.secondary,
+                  ),
+                  child: const Icon(
+                    Icons.add,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              body: const TabBarView(
+                children: [
+                  MessagesPage(),
+                  GroupsPage(),
                 ],
               ),
-            ),
-            floatingActionButton: FloatingActionButton(
-              backgroundColor: Colors.transparent,
-              onPressed: (){
-
-                Navigator.push(context, MaterialPageRoute(
-                    builder: (context)=> const ContactsScreen(),
-
-                ));
-              },
-              child: Container(
-                width: 80,
-                height: 80,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: AppColors.secondary,
-
-                ),
-                child: const Icon(Icons.add, color: Colors.white,),
-              ),
-            ),
-            body: const TabBarView(
-              children: [
-                MessagesPage(),
-                GroupsPage(),
-              ],
-            )
-        )
-    );
+              bottomNavigationBar: BottomNavigationBar(
+                  currentIndex: _currentPosition,
+                  type: BottomNavigationBarType.fixed,
+                  items: const [
+                    BottomNavigationBarItem(
+                        label: 'Accueil', icon: Icon(Icons.home)),
+                    BottomNavigationBarItem(
+                        label: 'Produits', icon: Icon(Icons.hive)),
+                    BottomNavigationBarItem(
+                        label: 'Virements', icon: Icon(Icons.sync_alt)),
+                    BottomNavigationBarItem(
+                        label: 'Autres',
+                        // onTap: (){
+                        //   Navigator.pushNamed(context, "/autres");
+                        // }
+                        icon: Icon(Icons.view_headline),
+                    ),
+                  ]),
+            ));
   }
-
-
 }

@@ -4,6 +4,8 @@ import 'package:bridgebank_social_app/data/storage/local_storage_service.dart';
 import 'package:bridgebank_social_app/data/storage/shared_prefs.dart';
 import 'package:bridgebank_social_app/rest/backend_rest_service.dart';
 import 'package:bridgebank_social_app/rest/backend_service.dart';
+import 'package:bridgebank_social_app/service/imgur_service.dart';
+import 'package:bridgebank_social_app/service/imgur_service_impl.dart';
 import 'package:bridgebank_social_app/ui/screens/auth/login_screen.dart';
 import 'package:bridgebank_social_app/ui/screens/main/main_screen.dart';
 import 'package:flutter/material.dart';
@@ -15,10 +17,12 @@ class AppSetup{
 
   static late BackendService backendService;
   static late LocalStorageService localStorageService;
+  static late ImgurService uploadImageService;
 
   static Session? me;
 
   static init()async{
+    uploadImageService = ImgurServiceImpl();
 
     backendService = BackendRestService();
     final SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -52,6 +56,7 @@ class AppSetup{
       }else{
         print("Token is not expired");
         return const MainScreen(title: "Bridge Bank Social");
+        // return const MainScreen(title: "Bridge Bank Social");
       }
 
     }
