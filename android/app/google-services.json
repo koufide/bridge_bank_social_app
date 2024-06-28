@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "644089073502",
+    "project_id": "fik-social-app",
+    "storage_bucket": "fik-social-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:644089073502:android:f524a02731066a789b09cf",
+        "android_client_info": {
+          "package_name": "ci.koufide.fidelinux.bridge"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTQ7uCasrIfNhR8yEjbuyGTM6LSJXurFE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:644089073502:android:2d236568e083c1ba9b09cf",
+        "android_client_info": {
+          "package_name": "ci.koufide.fidelinux.bridgebank_social_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTQ7uCasrIfNhR8yEjbuyGTM6LSJXurFE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

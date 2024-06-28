@@ -5,6 +5,9 @@ abstract class LocalStorageService{
   Future<void> storeConnectedUser(Session session);
 
   Session? connectedUser();
+  Session? getConnectedUser();
+
+
 
   Future<void> clear();
 

@@ -8,6 +8,9 @@ class Constants{
 
   static const String imagesDirectory = "assets/images";
 
+  static String databaseName ="bridge_bank_social_app.db";
+  static int databaseVersion = 1;
+
 
   /// Font family
   static String defaultFontFamily = 'Poppins';

@@ -1,5 +1,7 @@
 import 'package:bridgebank_social_app/configuration/token_manager.dart';
+import 'package:bridgebank_social_app/data/database/database_helper.dart';
 import 'package:bridgebank_social_app/data/models/session.dart';
+import 'package:bridgebank_social_app/data/storage/database_source.dart';
 import 'package:bridgebank_social_app/data/storage/local_storage_service.dart';
 import 'package:bridgebank_social_app/data/storage/shared_prefs.dart';
 import 'package:bridgebank_social_app/rest/backend_rest_service.dart';
@@ -25,6 +27,10 @@ class AppSetup{
     uploadImageService = ImgurServiceImpl();
 
     backendService = BackendRestService();
+
+    // DatabaseHelper.connection();
+    // DatabaseSource().getInstance();
+
     final SharedPreferences preferences = await SharedPreferences.getInstance();
     localStorageService =  SharedPrefs(preferences);
     me = localStorageService.connectedUser();

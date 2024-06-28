@@ -162,8 +162,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Widget _builUploadingUi() {
     return Container(
-      width: 140.w,
-      height: 140.h,
+      width: 140,
+      height: 140,
       // child: ProgressUi(),
       child: CircularProgressIndicator(),
       padding: EdgeInsets.all(10.dp),

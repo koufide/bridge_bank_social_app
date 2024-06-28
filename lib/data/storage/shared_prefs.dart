@@ -33,4 +33,14 @@ class SharedPrefs extends LocalStorageService{
       await _prefs.setString(PREF_CONNECTED_USER_KEY, jsonEncode(session.toJson()));
   }
 
+  @override
+  Session? getConnectedUser() {
+    final String? jsonString =  _prefs.getString(PREF_CONNECTED_USER_KEY);
+    if(jsonString == null){
+      return null;
+    }
+    final Map<String, dynamic> jsonSession = jsonDecode(jsonString);
+    return Session.fromJson(jsonSession);
+  }
+
 }
